@@ -1,0 +1,60 @@
+
+{% extends "base.html" %}
+{% block content %}
+
+
+<br>
+{{ game_info.g_name}}       <a class="btn btn-primary btn-sm" href={{game_info.g_url}} target="_blank" role="button"> VK </a>
+<br>
+
+<table class = 'table mt-1 table-bordered table-striped table-hover' >
+    <thead class="table-dark">
+        <tr>
+            <th scope="col">Название</th>
+            {% for t in tours %}
+                 <th scope="col">{{t}}</th>
+            {% endfor %} 
+            <th scope="col">Итог</th>
+            <th scope="col">Место</th>
+            {% if change_yes == 1 %}
+                <th scope="col">Изменить</th>
+            {% endif %}       
+        </tr>
+    </thead>
+    <tbody>
+        {% for g_data in g_data_info %}
+        <tr>
+            <td scope="col"><a href=/kirovstat/team_info/?team_id={{g_data.gd_team_id}} > <b>{{g_data.gd_team}}</b></a></td>
+            <td scope="col">{{g_data.gd_set1}}</td>
+            <td scope="col">{{g_data.gd_set2}}</td>           
+            <td scope="col">{{g_data.gd_set3}}</td>
+            <td scope="col">{{g_data.gd_set4}}</td>
+            <td scope="col">{{g_data.gd_set5}}</td>
+            {% if game_info.g_sets > 5  %}
+                <td scope="col">{{g_data.gd_set6}}</td>
+            {% endif %}
+            {% if game_info.g_sets > 6 %}
+                <td scope="col">{{g_data.gd_set7}}</td>
+            {% endif %}
+            {% if game_info.g_sets > 7  %}
+                <td scope="col">{{g_data.gd_set8}}</td>
+            {% endif %}
+            {% if game_info.g_sets > 8  %}
+                <td scope="col">{{g_data.gd_set9}}</td>
+            {% endif %}
+            {% if game_info.g_sets > 9  %}
+                <td scope="col">{{g_data.gd_set10}}</td>
+            {% endif %}
+            
+            <td scope="col">{{g_data.gd_summ}}</td>
+            <td scope="col">{{g_data.gd_place}}</td>
+            {% if change_yes == 1 %}
+                <th scope="col"><a class="btn btn-primary btn-sm" href=/admin/kirovstat/gmdata/{{g_data.id}}/change >  </a></a></th>
+            {% endif %}       
+        </tr>
+        {% endfor %} 
+    </tbody>
+</table>
+
+
+{% endblock %}

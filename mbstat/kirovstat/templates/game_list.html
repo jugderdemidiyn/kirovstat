@@ -1,0 +1,82 @@
+
+{% extends "base.html" %}
+{% block content %}
+
+{% load static %}
+
+
+<br>
+<form action = "/kirovstat/team_info/"  method="get" target="_self">
+<h4>Информация о команде </h4>
+<select class="js-select2" name="team_id" placeholder="Выберите команду">
+   <option value=""></option>
+   {% for t in t_data%}
+	   <option value={{t.id}}>{{t.t_name}}</option>
+	{%endfor%}	
+</select>
+
+
+<link rel="stylesheet" href="{% static '/select2/dist/css/select2.min.css' %}">
+<script src="{% static 'jquery/jquery-3.7.1.min.js' %}"></script>
+<script src="{% static 'select2/dist/js/select2.min.js' %}"></script>
+<script src="{% static 'select2/dist/js/i18n/ru.js' %}"></script>
+ 
+<script>
+$(document).ready(function() {
+	$('.js-select2').select2({
+		placeholder: "Выберите команду",
+		maximumSelectionLength: 2,
+		language: "ru"
+	});
+});
+</script>
+
+<button  type="submit" class="btn">  Найти </button> 
+</form>
+
+<br><br><br>
+
+
+
+<h4>Всего игр в этом году- {{ g_count }} </h4>
+
+<table class = 'table mt-5 table-bordered table-hover table-striped' >
+    <thead class="table-dark">
+        <tr>
+            <th scope="col">Название</th>
+            <th scope="col">Количество команд</th>
+            <th scope="col">Тип</th>
+            <th scope="col">Ссылка на VK</th>
+        </tr>
+    </thead>
+    <tbody>
+      {% for game in game1 %}
+        <tr>
+         <td class="text-left" ><a href=/kirovstat/game_info/?game_id={{game.id}} ><b>{{game.g_name}} </b></a></td>
+         <td> {{game.g_teams}} </td>
+         {%if game.g_type_id == 2 %}
+            <td> <button type="button" class="btn btn-success"> </button> </td>
+         {%elif game.g_type_id == 3 %} 
+            <td> <button type="button" class="btn btn-danger"> </button> </td> 
+         {%elif game.g_type_id == 4 %} 
+            <td> <button type="button" class="btn btn-warning"> </button>   </td> 
+         {%elif game.g_type_id == 5 %} 
+            <td> <button type="button" class="btn btn-info"> </button>   </td> 
+         {%else%} 
+            <td > <button type="button" class="btn btn-secondary"></button></td> 
+         {%endif%} 
+         <td><a class="btn btn-primary btn-sm" href={{game.g_url}} target="_blank" role="button"> VK </a></td>
+         
+        </tr>
+      {% endfor %} 
+    </tbody>
+</table>
+
+<button type="button" class="btn btn-secondary"></button> - Класcика
+<button type="button" class="btn btn-info"> </button> Тематическая классика
+<button type="button" class="btn btn-success"> </button> Туц-туц 
+<button type="button" class="btn btn-danger"> </button> Тематическая
+<button type="button" class="btn btn-warning"> </button> Юбилейная и праздничная
+<br>
+
+{% endblock %}

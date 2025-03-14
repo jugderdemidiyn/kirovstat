@@ -1,0 +1,163 @@
+
+{% extends 'base.html' %}
+{% block content %}
+
+<br>
+
+
+{% for t in t_names%}
+  <br>
+ 
+  {%if t.id == t.t_aka_id%}
+    Команда - <h2> {{t.t_name}} </h2><br>
+  {%else%}
+    Так же известная как - {{t.t_name}}<br>
+  {%endif%}  
+
+{%endfor%} 
+
+{% if t_foto != '.foto.jpg' %}
+  {% load static %}
+
+  <img src= "/static/{{t_foto}}" width="400" height="250"  alt="{{t_names.t_name}}" /> 
+{%endif%}
+
+<br><br>
+
+Игры в этом году
+<table class = 'table mt-5 table-bordered table-striped table-hover' >
+    <thead class="table-dark">
+        <tr>
+            
+            <th scope="col">Игра</th>
+            <th scope="col">Тип</th>
+            <th scope="col">Место</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for data in t_data_info%}
+        <tr>
+            <td><a href=/kirovstat/game_info/?game_id={{data.gd_game_id}} ><b>{{data.gd_game}}</b></a></td>
+            {%if data.gd_game.g_type_id == 2 %}
+              <td> <button type="button" class="btn btn-success"> </button> </td>
+            {%elif data.gd_game.g_type_id == 3 %} 
+              <td> <button type="button" class="btn btn-danger"> </button> </td> 
+            {%elif data.gd_game.g_type_id == 4 %} 
+              <td> <button type="button" class="btn btn-warning"> </button> </td> 
+            {%elif data.gd_game.g_type_id == 5 %} 
+               <td> <button type="button" class="btn btn-info"> </button>  </td> 
+            {%else%} 
+              <td > <button type="button" class="btn btn-secondary"></button></td>  
+            {%endif%} 
+            <td>{{data.gd_place}}</td>
+        </tr>
+        {%endfor%} 
+    </tbody>
+</table>
+
+Всего игр - {{g_count}} <br>
+Самое высокое место -  {{Max_place}} <br>
+Самое низкое место -  {{Min_place}} <br>
+
+<table class = 'table mt-5 table-bordered table-striped table-hover' >
+  <thead class="table-dark">
+      <tr>
+          
+          <th scope="col">Место</th>
+          <th scope="col">___Всего___</th>
+          <th scope="col">Класcика<button type="button" class="btn btn-secondary"></button><button type="button" class="btn btn-info"></button></th>
+          <th scope="col">Туц-туц<button type="button" class="btn btn-success"></button></th>
+          <th scope="col">Тематическая<button type="button" class="btn btn-danger"></button></th>
+          <th scope="col">Юбилейная<button type="button" class="btn btn-warning"></button></th>
+      </tr>
+  </thead>
+  <tbody>
+    
+       
+      <tr>
+        <td>1</td>
+        <td>{{l_p.1}}</td>
+        <td>{{l_p_class.1}}</td>
+        <td>{{l_p_tuz.1}}</td>  
+        <td>{{l_p_tem.1}}</td>  
+        <td>{{l_p_jub.1}}</td>  
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>{{l_p.2}}</td>
+        <td>{{l_p_class.2}}</td>
+        <td>{{l_p_tuz.2}}</td>  
+        <td>{{l_p_tem.2}}</td>  
+        <td>{{l_p_jub.2}}</td>  
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>{{l_p.3}}</td>
+        <td>{{l_p_class.3}}</td>
+        <td>{{l_p_tuz.3}}</td>  
+        <td>{{l_p_tem.3}}</td>  
+        <td>{{l_p_jub.3}}</td>  
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>{{l_p.4}}</td>
+        <td>{{l_p_class.4}}</td>
+        <td>{{l_p_tuz.4}}</td>  
+        <td>{{l_p_tem.4}}</td>  
+        <td>{{l_p_jub.4}}</td>  
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>{{l_p.5}}</td>
+        <td>{{l_p_class.5}}</td>
+        <td>{{l_p_tuz.5}}</td>  
+        <td>{{l_p_tem.5}}</td>  
+        <td>{{l_p_jub.5}}</td>  
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>{{l_p.6}}</td>
+        <td>{{l_p_class.6}}</td>
+        <td>{{l_p_tuz.6}}</td>  
+        <td>{{l_p_tem.6}}</td>  
+        <td>{{l_p_jub.6}}</td>  
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>{{l_p.7}}</td>
+        <td>{{l_p_class.7}}</td>
+        <td>{{l_p_tuz.7}}</td>  
+        <td>{{l_p_tem.7}}</td>  
+        <td>{{l_p_jub.7}}</td>  
+      </tr>
+      <tr>
+        <td>8</td>
+        <td>{{l_p.8}}</td>
+        <td>{{l_p_class.8}}</td>
+        <td>{{l_p_tuz.8}}</td>  
+        <td>{{l_p_tem.8}}</td>  
+        <td>{{l_p_jub.8}}</td>  
+      </tr>
+      <tr>
+        <td>9</td>
+        <td>{{l_p.9}}</td>
+        <td>{{l_p_class.9}}</td>
+        <td>{{l_p_tuz.9}}</td>  
+        <td>{{l_p_tem.9}}</td>  
+        <td>{{l_p_jub.9}}</td>  
+      </tr>
+      <tr>
+        <td>10</td>
+        <td>{{l_p.10}}</td>
+        <td>{{l_p_class.10}}</td>
+        <td>{{l_p_tuz.10}}</td>  
+        <td>{{l_p_tem.10}}</td>  
+        <td>{{l_p_jub.10}}</td>  
+      </tr>
+      
+    
+   
+  </tbody>
+</table>
+
+{% endblock %}
