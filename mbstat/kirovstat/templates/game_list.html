@@ -79,4 +79,159 @@ $(document).ready(function() {
 <button type="button" class="btn btn-warning"> </button> Юбилейная и праздничная
 <br>
 
+
+<table class = 'table mt-5 table-bordered table-hover table-striped' >
+   <thead class="table-dark">
+       <tr>
+           <th scope="col"><h3>Всего</h3></th>
+           <th scope="col"><h3>Классика</h3></th>
+           <th scope="col"><h3>Туц-туц</h3></th>
+           <th scope="col"><h3>Тематическая</h3></th>
+       </tr>
+   </thead>
+   <tbody>
+
+   <tr>
+      <td>
+      
+      <ul><b>Первое место </b><br>
+
+      {% for key,values in place_data_a_1.items %}
+         <li>
+         <a href=/kirovstat/team_info/?team_id={{key}} >{{values.1}} </a>-  {{values.0}}  <br>
+         </li>   
+      {%endfor%}
+      </ul>
+      </td>   
+ 
+      <td>
+      <ul><b>Первое место </b><br>
+
+      {% for key,values in place_data_cl_1.items %}
+      <li>
+         <a href=/kirovstat/team_info/?team_id={{key}} >{{values.1}} </a>-  {{values.0}}  <br>
+      </li>
+      {%endfor%}
+      </ul>
+      </td>   
+
+      <td>
+      <ul><b>Первое место </b><br>
+
+      {% for key,values in place_data_tz_1.items %}
+      <li>
+         <a href=/kirovstat/team_info/?team_id={{key}} >{{values.1}} </a>-  {{values.0}}  <br>
+      </li>
+      {%endfor%}
+      </ul>
+      </td>
+
+      <td>
+      <ul><b>Первое место </b><br>
+
+      {% for key,values in place_data_tem_1.items %}
+      <li>
+         <a href=/kirovstat/team_info/?team_id={{key}} >{{values.1}} </a>-  {{values.0}}  <br>
+      </li>
+      {%endfor%}
+      
+      </ul>
+      </td>
+
+   </tr>
+
+   <tr>
+      <td>
+      <ul><b>Второе место </b><br>
+
+      {% for key,values in place_data_a_2.items %}
+      <li>
+         <a href=/kirovstat/team_info/?team_id={{key}} >{{values.1}} </a>-  {{values.0}}  <br>
+      </li>
+      {%endfor%}
+      
+      </ul></td>   
+ 
+      <td>
+      <ul><b>Второе место </b><br>
+
+      {% for key,values in place_data_cl_2.items %}
+      <li>
+         <a href=/kirovstat/team_info/?team_id={{key}} >{{values.1}} </a>-  {{values.0}}  <br>
+      </li>
+      {%endfor%}
+   
+      </ul></td>   
+
+      <td>
+      <ul><b>Второе место </b><br>
+
+      {% for key,values in place_data_tz_2.items %}
+      <li>
+         <a href=/kirovstat/team_info/?team_id={{key}} >{{values.1}} </a>-  {{values.0}}  <br>
+      </li>
+      {%endfor%}
+   
+      </ul></td>
+
+      <td>
+      <ul><b>Второе место </b><br>
+
+      {% for key,values in place_data_tem_2.items %}
+      <li>
+         <a href=/kirovstat/team_info/?team_id={{key}} >{{values.1}} </a>-  {{values.0}}  <br>
+      </li>
+      {%endfor%}
+      
+      </ul></td>
+
+   </tr>
+
+   <tr>
+      <td>
+      <ul><b>Третье место </b><br>
+
+      {% for key,values in place_data_a_3.items %}
+      <li>
+         <a href=/kirovstat/team_info/?team_id={{key}} >{{values.1}} </a>-  {{values.0}}  <br>
+      </li>
+      {%endfor%}
+      </ul></td>   
+ 
+      <td>
+      <ul><b>Третье место </b><br>
+
+      {% for key,values in place_data_cl_3.items %}
+      <li>
+         <a href=/kirovstat/team_info/?team_id={{key}} >{{values.1}} </a>-  {{values.0}}  <br>
+      </li>
+      {%endfor%}
+   
+      </ul></td>   
+
+      <td>
+      <ul><b>Третье место </b><br>
+
+      {% for key,values in place_data_tz_3.items %}
+      <li>
+         <a href=/kirovstat/team_info/?team_id={{key}} >{{values.1}} </a>-  {{values.0}}  <br>
+      </li>
+      {%endfor%}
+   
+       </ul></td>
+
+      <td>
+      <ul><b>Третье место </b><br>
+
+      {% for key,values in place_data_tem_3.items %}
+      <li>
+         <a href=/kirovstat/team_info/?team_id={{key}} >{{values.1}} </a>-  {{values.0}}  <br>
+      </li>
+      {%endfor%}
+      </ul></td>
+
+   </tr>
+
+   <tbody>
+
 {% endblock %}

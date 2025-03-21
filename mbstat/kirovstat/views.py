@@ -4,15 +4,34 @@ from django.http import JsonResponse
 from django.db.models import Avg, Max, Min, Sum
 from . models import game_type, games, teams, gmdata
 from . defs_1 import * 
-import pandas as pd
+
 
 def index(request): 
     g_count = games.objects.count()
     game1 = games.objects.all() 
     t_data = get_all_teams()     
-           
-    context = {'game1': game1, 'g_count' : g_count, 't_data' : t_data} 
+
     
+    place_data_a_1=get_place(1,type1=[1,2,3,4,5]) 
+    place_data_a_2=get_place(2,type1=[1,2,3,4,5]) 
+    place_data_a_3=get_place(3,type1=[1,2,3,4,5]) 
+    place_data_cl_1=get_place(1,type1=[1,5]) 
+    place_data_cl_2=get_place(2,type1=[1,5]) 
+    place_data_cl_3=get_place(3,type1=[1,5]) 
+    place_data_tz_1=get_place(1,type1=[2]) 
+    place_data_tz_2=get_place(2,type1=[2]) 
+    place_data_tz_3=get_place(3,type1=[2])
+    place_data_tem_1=get_place(1,type1=[3])  
+    place_data_tem_2=get_place(2,type1=[3])  
+    place_data_tem_3=get_place(3,type1=[3])  
+     
+
+    context = {'game1': game1, 'g_count' : g_count, 't_data' : t_data, \
+               'place_data_a_1' : place_data_a_1, 'place_data_a_2' : place_data_a_2,'place_data_a_3' : place_data_a_3,\
+               'place_data_cl_1' : place_data_cl_1, 'place_data_cl_2' : place_data_cl_2,'place_data_cl_3' : place_data_cl_3,\
+               'place_data_tz_1' : place_data_tz_1, 'place_data_tz_2' : place_data_tz_2,'place_data_tz_3' : place_data_tz_3,\
+               'place_data_tem_1' : place_data_tem_1, 'place_data_tem_2' : place_data_tem_2,'place_data_tem_3' : place_data_tem_3 }
+ 
     
     return render(request, 'game_list.html', context)   
 

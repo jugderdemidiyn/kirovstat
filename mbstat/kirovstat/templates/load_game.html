@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<br>
+
+{% for i in dl %}
+ 
+   {{i}} <br>
+
+{%endfor%}
+
+
+
+<a class="related-widget-wrapper-link add-related" id="add_id_gd_team" data-popup="yes" href="/admin/kirovstat/teams/add/?_to_field=id&amp;_popup=1" title="Добавить ещё один объект типа " Команда""=""><img src="/static/admin/img/icon-addlink.svg" alt="Добавить"></a>
+
+{% endblock %}

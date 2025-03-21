@@ -107,7 +107,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'ru-ru'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 
@@ -131,3 +131,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 JQUERY_URL = os.path.join(STATIC_URL, '/static/jquery/jquery-3.7.1.min.js')
 
+
+MEDIA_ROOT = [
+             os.path.join (BASE_DIR ,'media'),
+             ]
+MEDIA_URL =  '/media/'
