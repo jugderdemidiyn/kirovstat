@@ -60,7 +60,7 @@ def team_info (request):
     l_p_jub=  [0,0,0,0,0,0,0,0,0,0,0]
     
     for t in t_data_info:   
-      for i in range(1,10):
+      for i in range(1,11):
         if t.gd_place==i:
             l_p[i]=l_p[i]+1
             if t.gd_game.g_type_id==1 or t.gd_game.g_type_id==5:
@@ -72,7 +72,7 @@ def team_info (request):
             else:
                l_p_jub[i]=l_p_jub[i]+1
 
-    l=[1,2,3,4,5,6,7,8,10]
+    l=[1,2,3,4,5,6,7,8,9,10]
          
 
     context = {'t_data_info': t_data_info, 't_names': t_names, 't_foto': t_foto, 'Max_place': Max_place,'Min_place' :Min_place, 'g_count':g_count, 'l': l,'l_p' : l_p,'l_p_class' : l_p_class,'l_p_tuz' : l_p_tuz, 'l_p_tem' :l_p_tem,'l_p_jub':l_p_jub }
