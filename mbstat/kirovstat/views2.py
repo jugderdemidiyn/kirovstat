@@ -21,7 +21,7 @@ def check_team_name(t_name):
     
     a=20
     a_name='нет команды'
-    a_id=0
+    #a_id=0
     name_len_diff=40
     for i in t_names:
         
@@ -58,7 +58,6 @@ def add_game (request):
     
     if request.method == 'POST' and request.FILES['file']:
 
-    #f_name='./media/Классика 04.12.24.xlsx'
         f_name=request.FILES['file']
 
         dl=parse_excel_to_dict_list(f_name)
@@ -72,16 +71,16 @@ def add_game (request):
             cheked_list_line={}
        
             a_name,a_id = check_team_name (j[0])
-            print(j[0],' ',a_name,' ',a_id)
+            #print(j[0],' ',a_name,' ',a_id)
             cheked_list_line['dl_name']=j[0]
             cheked_list_line['ch_name']=a_name
             cheked_list_line['ch_id']=a_id
     
             for t in range(1,tours+1):
-                  tour_place=t+3
+                  tour_place=t+1
                   cheked_list_line[t]=j[tour_place]
-                  cheked_list_line['place']=j[-1] 
-                  cheked_list_line['summ']=j[-2] 
+            cheked_list_line['place']=j[-1] 
+            cheked_list_line['summ']=j[-2] 
             cheked_list.append(cheked_list_line)
         
         context = { 'dl' : cheked_list  }
