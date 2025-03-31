@@ -46,8 +46,8 @@ class games (models.Model):
         return self.g_name 
     
 class gmdata (models.Model):
-    gd_game = models.ForeignKey(games, null=False, on_delete = models.CASCADE)
-    gd_team = models.ForeignKey(teams, null=False, on_delete = models.CASCADE)
+    gd_game = models.ForeignKey(games, verbose_name='Игра',null=False, on_delete = models.CASCADE)
+    gd_team = models.ForeignKey(teams, verbose_name='Команда',null=False, on_delete = models.CASCADE)
     gd_set1 = models.FloatField(verbose_name='Тур 1',max_length=5,default=300)
     gd_set2 = models.FloatField(verbose_name='Тур 2',max_length=5,default=300)
     gd_set3 = models.FloatField(verbose_name='Тур 3',max_length=5,default=300)

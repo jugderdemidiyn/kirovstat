@@ -1,9 +1,45 @@
 from django.shortcuts import render
 from django.http import HttpResponse 
 import pandas as pd
+from django.forms import ModelForm
+
 
 from . models import game_type, games, teams, gmdata
 from . defs_1 import * 
+
+
+class AddGameData(ModelForm):
+    class Meta:
+        model = gmdata
+        fields = ['gd_game','gd_team','gd_place',]
+
+
+#  нахождение максимально похожей команды по имени
+def check_team_name(t_name):
+
+    t_names = teams.objects.values_list('t_name','id')
+    
+    a=20
+    a_name='нет команды'
+    a_id=0
+    name_len_diff=40
+    for i in t_names:
+        
+        a1=len(set(t_name.lower())-set (i[0].lower()))
+        name_len_diff1 = len(t_name)-len(i[0])
+       
+        if a1<a or (a1==a and abs(name_len_diff1)<name_len_diff):
+            a=a1
+            a_name=i[0]
+            a_id=i[1]
+            name_len_diff=abs(name_len_diff1)
+    
+    if a>2 or name_len_diff>15:
+        a_name='нет команды'
+        a_id=0
+
+    return (a_name,a_id)
+
 
 
 def parse_excel_to_dict_list(filepath: str, sheet_name='Sheet1'):
@@ -20,11 +56,34 @@ def parse_excel_to_dict_list(filepath: str, sheet_name='Sheet1'):
 
 def add_game (request):
     
-    
-    f_name='./media/Классика 04.12.24.xlsx'
+    if request.method == 'POST' and request.FILES['file']:
 
-    dl=parse_excel_to_dict_list(f_name)
-    #print(dl)
-    context = {'dl' : dl }
+    #f_name='./media/Классика 04.12.24.xlsx'
+        f_name=request.FILES['file']
+
+        dl=parse_excel_to_dict_list(f_name)
+        tours = 7
+        
+        cheked_list=[]
+
+        for i in dl:
+         # print (i)
+            j=list(i.values())
+            cheked_list_line={}
+       
+            a_name,a_id = check_team_name (j[0])
+            print(j[0],' ',a_name,' ',a_id)
+            cheked_list_line['dl_name']=j[0]
+            cheked_list_line['ch_name']=a_name
+            cheked_list_line['ch_id']=a_id
     
-    return render (request, 'load_game.html', context )
+            for t in range(1,tours+1):
+                  tour_place=t+3
+                  cheked_list_line[t]=j[tour_place]
+                  cheked_list_line['place']=j[-1] 
+                  cheked_list_line['summ']=j[-2] 
+            cheked_list.append(cheked_list_line)
+        
+        context = { 'dl' : cheked_list  }
+        return render (request, 'load_game.html', context)
+    return render(request, 'add_game_file.html')
