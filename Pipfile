@@ -5,6 +5,8 @@ name = "pypi"
 
 [packages]
 pandas = "*"
+django-import-export = "*"
+openpyxl = "*"
 
 [dev-packages]
 
