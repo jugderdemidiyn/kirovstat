@@ -124,7 +124,7 @@ def add_game (request):
 
         for i in cheked_list:
             new_data=gmdata(
-            gd_game=game_id_for_add,
+            gd_game=games.objects.get(id=game_id_for_add)
             gd_team=i['ch_id'],
             gd_set1=i[1], 
             gd_set2=i[2],
