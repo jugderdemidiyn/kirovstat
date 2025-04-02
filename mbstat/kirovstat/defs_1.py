@@ -3,6 +3,15 @@ from datetime import date
 import collections as coll
 from operator import itemgetter
 
+#Получение игр по начальной и конечно дате
+def get_games_all_in_range(d_s , d_f):
+
+    d1 = date.fromisoformat(d_s)
+    d2 = date.fromisoformat(d_f)
+    games1  = games.objects.filter(g_date__gte=d1, g_date__lte=d2) 
+    
+    return(games1)
+
 
 #Получение списка игр по начальной и конечно дате
 def get_games_in_range(d_s , d_f):

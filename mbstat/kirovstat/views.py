@@ -8,7 +8,8 @@ from . defs_1 import *
 
 def index(request): 
     g_count = games.objects.count()
-    game1 = games.objects.all() 
+    #game1 = games.objects.all() 
+    game1 = get_games_all_in_range('2025-01-01','2025-12-31')
     t_data = get_all_teams()     
 
     
