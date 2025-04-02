@@ -13,5 +13,6 @@ urlpatterns = [
     re_path(r'^game_info/', views.game_info,  name = 'game_info'),
     re_path(r'^statistic/', views.game_info,  name = 'stats'),
     re_path(r'^load_game/', views2.add_game,  name = 'load_game'),
+    re_path(r'^year_stat/', views.year_stat,  name = 'year_stat'),
     
 ]

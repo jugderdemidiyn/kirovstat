@@ -7,7 +7,7 @@ from . defs_1 import *
 
 
 def index(request): 
-    g_count = games.objects.count()
+    g_count = get_games_count('2025-01-01','2025-12-31')
     #game1 = games.objects.all() 
     game1 = get_games_all_in_range('2025-01-01','2025-12-31')
     t_data = get_all_teams()     
@@ -101,4 +101,37 @@ def game_info (request):
     context = {'g_data_info': g_data_info, 'game_info': game_info, 'tours' : tours, 'change_yes' : change_yes }
     
     return render (request, 'game_info.html', context )
-    # return JsonResponse(context)
+
+
+def year_stat(request): 
+    year = request.GET['year']
+    s_data = year + '-01-01'
+    f_data = year + '-12-31'
+    g_count = get_games_count(s_data,f_data)
+    #game1 = games.objects.all() 
+    game1 = get_games_all_in_range(s_data,f_data)
+    t_data = get_all_teams()     
+
+    
+    place_data_a_1=get_place(1,type1=[1,2,3,4,5],data_start = s_data, data_finish = f_data) 
+    place_data_a_2=get_place(2,type1=[1,2,3,4,5],data_start = s_data, data_finish = f_data) 
+    place_data_a_3=get_place(3,type1=[1,2,3,4,5],data_start = s_data, data_finish = f_data) 
+    place_data_cl_1=get_place(1,type1=[1,5],data_start = s_data, data_finish = f_data) 
+    place_data_cl_2=get_place(2,type1=[1,5],data_start = s_data, data_finish = f_data) 
+    place_data_cl_3=get_place(3,type1=[1,5],data_start = s_data, data_finish = f_data) 
+    place_data_tz_1=get_place(1,type1=[2],data_start = s_data, data_finish = f_data) 
+    place_data_tz_2=get_place(2,type1=[2],data_start = s_data, data_finish = f_data) 
+    place_data_tz_3=get_place(3,type1=[2],data_start = s_data, data_finish = f_data)
+    place_data_tem_1=get_place(1,type1=[3],data_start = s_data, data_finish = f_data)  
+    place_data_tem_2=get_place(2,type1=[3],data_start = s_data, data_finish = f_data)  
+    place_data_tem_3=get_place(3,type1=[3],data_start = s_data, data_finish = f_data)  
+     
+
+    context = {'game1': game1, 'g_count' : g_count, 't_data' : t_data, \
+               'place_data_a_1' : place_data_a_1, 'place_data_a_2' : place_data_a_2,'place_data_a_3' : place_data_a_3,\
+               'place_data_cl_1' : place_data_cl_1, 'place_data_cl_2' : place_data_cl_2,'place_data_cl_3' : place_data_cl_3,\
+               'place_data_tz_1' : place_data_tz_1, 'place_data_tz_2' : place_data_tz_2,'place_data_tz_3' : place_data_tz_3,\
+               'place_data_tem_1' : place_data_tem_1, 'place_data_tem_2' : place_data_tem_2,'place_data_tem_3' : place_data_tem_3 }
+ 
+    
+    return render(request, 'year_stat.html', context)   

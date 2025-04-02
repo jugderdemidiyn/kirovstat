@@ -12,6 +12,14 @@ def get_games_all_in_range(d_s , d_f):
     
     return(games1)
 
+#Получение количества игр по начальной и конечно дате
+def get_games_count(d_s , d_f):
+
+    d1 = date.fromisoformat(d_s)
+    d2 = date.fromisoformat(d_f)
+    g_count  = games.objects.filter(g_date__gte=d1, g_date__lte=d2).count
+    
+    return(g_count)
 
 #Получение списка игр по начальной и конечно дате
 def get_games_in_range(d_s , d_f):

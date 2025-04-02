@@ -6,33 +6,7 @@
 
 
 <br>
-<form action = "/kirovstat/team_info/"  method="get" target="_self">
-<h4>Информация о команде </h4>
-<select class="js-select2" name="team_id" placeholder="Выберите команду">
-   <option value=""></option>
-   {% for t in t_data%}
-	   <option value={{t.id}}>{{t.t_name}}</option>
-	{%endfor%}	
-</select>
 
-
-<link rel="stylesheet" href="{% static '/select2/dist/css/select2.min.css' %}">
-<script src="{% static 'jquery/jquery-3.7.1.min.js' %}"></script>
-<script src="{% static 'select2/dist/js/select2.min.js' %}"></script>
-<script src="{% static 'select2/dist/js/i18n/ru.js' %}"></script>
- 
-<script>
-$(document).ready(function() {
-	$('.js-select2').select2({
-		placeholder: "Выберите команду",
-		maximumSelectionLength: 2,
-		language: "ru"
-	});
-});
-</script>
-
-<button  type="submit" class="btn">  Найти </button> 
-</form>
 <style>
    .my-table {
    width: 100%;
@@ -104,12 +78,8 @@ display: none;
 <button type="button" class="btn btn-success"> </button> Туц-туц 
 <button type="button" class="btn btn-danger"> </button> Тематическая
 <button type="button" class="btn btn-warning"> </button> Юбилейная и праздничная
-<br><br>
-<a href=/kirovstat/year_stat/?year=2024><b> 2024 </b></a> _ _
-<a href=/kirovstat/year_stat/?year=2023><b> 2023</b></a> _ _
-<a href=/kirovstat/year_stat/?year=2022><b> 2022 </b></a> _ _
-<a href=/kirovstat/year_stat/?year=2021><b> 2021 </b></a> _ _
-<a href=/kirovstat/year_stat/?year=2020><b> 2020 </b></a> 
+<br>
+
 
 <table class = 'table mt-5 table-bordered table-hover table-striped' >
    <thead class="table-dark">
@@ -264,8 +234,5 @@ display: none;
    </tr>
 
    <tbody>
-
-
-
 
 {% endblock %}
