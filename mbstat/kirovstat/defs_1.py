@@ -47,7 +47,6 @@ def get_akas (t_id):
 
 
 # Получение данных по id команды (список с ака), начальная и конечная даты
-
 def get_games_info (t_id_list , data_start = '2025-01-01', data_finish = '2025-12-31'):
  
 
@@ -118,8 +117,8 @@ def check_team_name(t_name):
 
     return (a_name,a_id)
 
-#  нахождение максимально похожей игры по имени
 
+#  нахождение максимально похожей игры по имени
 def check_game_name(g_name):
     
     g_names = games.objects.values_list('g_name','id','g_sets')
