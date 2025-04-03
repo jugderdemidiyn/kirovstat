@@ -29,10 +29,10 @@ class teams (models.Model):
         return self.t_name
     
 class games (models.Model):
-    g_name = models.CharField(default="Название игры", max_length=50)
+    g_name = models.CharField(default="Название игры", max_length=100)
     g_type = models.ForeignKey(game_type,null=True, on_delete=models.SET_NULL)
-    g_date = models.DateField(verbose_name='Дата игры',)
-    g_sets = models.IntegerField(verbose_name='Количесто туров')
+    g_date = models.DateField(verbose_name='Дата игры')
+    g_sets = models.IntegerField(verbose_name='Количесто туров',default=5)
     g_url = models.URLField(verbose_name='Ссылка на игра в ВК',default="https://vk.com/mzgb_kir", max_length=200)
     time_data = models.DateTimeField(auto_now=True,db_index=True, verbose_name='создано') 
     g_teams = models.IntegerField(verbose_name='Количество команда',null=True, default = 1)
