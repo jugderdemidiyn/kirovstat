@@ -60,10 +60,10 @@ def check_game_name(g_name):
             g_sets=i[2]
             name_len_diff=abs(name_len_diff1)
     
-    if a>6 or name_len_diff>15:
+    if a>2 or name_len_diff>5:
         g_name='нет игры'
         g_id=0
-    return (g_name, g_id, g_sets)
+    return (a_name, g_id, g_sets)
 
 def parse_excel_to_dict_list(filepath: str, sheet_name='Sheet1'):
     # Загружаем Excel файл в DataFrame
@@ -84,17 +84,18 @@ def add_game (request):
         f_name=request.FILES['file']
 
         dl=parse_excel_to_dict_list(f_name)
-        
-        #print (dl)
-       
+              
         global cheked_list
         cheked_list=[]
 
         cheked_g_name={}
         
         g_name,g_id,tours=check_game_name(list(dl[0])[0])
+        print(check_game_name(list(dl[0])[0]))
+        
         cheked_g_name [g_name]= g_id
         cheked_g_name ['Туров']= tours
+        
         global game_id_for_add
         game_id_for_add=g_id
 
