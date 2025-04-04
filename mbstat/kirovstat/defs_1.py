@@ -153,6 +153,8 @@ def parse_excel_to_dict_list(filepath: str, sheet_name='Sheet1'):
     df = pd.read_excel(filepath)
                        #,sheet_name=sheet_name)
 
+    #print (df)                      
+
     # Преобразуем DataFrame в список словарей
     dict_list = df.to_dict(orient='records')
 
