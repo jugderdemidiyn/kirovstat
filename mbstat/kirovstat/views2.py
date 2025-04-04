@@ -19,11 +19,13 @@ def add_game (request):
         f_name=request.FILES['file']
 
         dl=parse_excel_to_dict_list(f_name)
-              
+
+        global game_id_for_add
         global cheked_list
         cheked_list=[]
 
         cheked_g_name={}
+        game_id_for_add=0
         
         g_name,g_id,tours=check_game_name(list(dl[0])[0])
         
@@ -31,8 +33,7 @@ def add_game (request):
         
         cheked_g_name [g_name]= g_id
         cheked_g_name ['Туров']= tours
-        
-        global game_id_for_add
+                
         game_id_for_add=g_id
 
         for i in dl:
@@ -68,7 +69,7 @@ def add_game (request):
         for i in cheked_list:
             ch_id=i['ch_id']
             if ch_id==0:
-                ch_id=174
+                ch_id=208
             new_data=gmdata(
             gd_game=games.objects.get(pk=game_id_for_add),
             gd_team=teams.objects.get(pk=ch_id),

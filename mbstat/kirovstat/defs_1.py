@@ -130,16 +130,21 @@ def check_game_name(g_name):
         a1=len(set(g_name.lower())- set(i[0].lower()))
         name_len_diff1 = len(g_name)-len(i[0])
         
-        if a1<a or (a1==a and abs(name_len_diff1)<name_len_diff):
-            print(i[1])
+        if g_name.lower()==i[0].lower():
+            a_name=i[0]
+            g_id=i[1]
+            g_sets=i[2]
+
+        elif a1<a or (a1==a and abs(name_len_diff1)<name_len_diff):
+            #print(i[1])
             a=a1
             a_name=i[0]
             g_id=i[1]
             g_sets=i[2]
             name_len_diff=abs(name_len_diff1)
     
-    if a>5 or name_len_diff>10:
-        a_name='нет игры'
+    if a>1 or name_len_diff>5:
+        a_name='NOT FOUND'
         g_id=0
     return (a_name, g_id, g_sets)  
 
