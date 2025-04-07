@@ -24,8 +24,35 @@
 
 <br><br>
 
-Игры в этом году
-<table class = 'table mt-5 table-bordered table-striped table-hover' >
+Игры в {{ year}}-м году <br>
+
+<a href=/kirovstat/team_info/?team_id={{team_id}}&year=2025>2025</a>
+<a href=/kirovstat/team_info/?team_id={{team_id}}&year=2024>2024</a>
+<a href=/kirovstat/team_info/?team_id={{team_id}}&year=2023>2023</a>
+<a href=/kirovstat/team_info/?team_id={{team_id}}&year=2022>2022</a>
+<a href=/kirovstat/team_info/?team_id={{team_id}}&year=2021>2021</a>
+<a href=/kirovstat/team_info/?team_id={{team_id}}&year=2020>2020</a>
+<br><br>
+
+<style>
+  
+  .wrap-expand-table a[href^="#click-expand"], .wrap-expand-table a[href="#close"] {
+  text-decoration: none;
+  border-bottom: 1px dashed;
+  }
+[id^="click-expand"] {
+  position: fixed; 
+  }
+  [id^="click-expand"]:target + .wrap-expand-table a[href^="#click-expand"],
+  [id^="click-expand"]:not(:target) + .wrap-expand-table tbody tr:nth-of-type(n+5), 
+  [id^="click-expand"]:not(:target) + .wrap-expand-table a[href="#close"] {
+  display: none;
+  }
+  </style>
+<div id="click-expand1"/></div>
+<div class="wrap-expand-table"><a href="#close">Свернуть</a><a href="#click-expand1">Развернуть</a>
+
+<table class = 'table mt-3 table-bordered table-striped table-hover' >
     <thead class="table-dark">
         <tr>
             
@@ -54,12 +81,13 @@
         {%endfor%} 
     </tbody>
 </table>
+<a href="#close">Cвернуть</a><a href="#click-expand1">Посмотреть весь список</a><br><br>
 
 Всего игр - {{g_count}} <br>
 Самое высокое место -  {{Max_place}} <br>
 Самое низкое место -  {{Min_place}} <br>
 
-<table class = 'table mt-5 table-bordered table-striped table-hover' >
+<table class = 'table table-bordered table-striped table-hover' >
   <thead class="table-dark">
       <tr>
           

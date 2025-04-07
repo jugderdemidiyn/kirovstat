@@ -19,6 +19,7 @@ def add_game (request):
         f_name=request.FILES['file']
 
         dl=parse_excel_to_dict_list(f_name)
+       
 
         global game_id_for_add
         global cheked_list
@@ -29,7 +30,8 @@ def add_game (request):
         
         g_name,g_id,tours=check_game_name(list(dl[0])[0])
         
-        print(check_game_name(list(dl[0])[0]))
+        # print(check_game_name(list(dl[0])[0]))
+        
         
         cheked_g_name [g_name]= g_id
         cheked_g_name ['Туров']= tours
@@ -88,6 +90,10 @@ def add_game (request):
             )
             new_data.save()
         redir_addr = '/kirovstat/game_info/?game_id='+ str(game_id_for_add)
+
+        game_id_for_add=0
+        cheked_list=[]
+
         return redirect(redir_addr)
 
 

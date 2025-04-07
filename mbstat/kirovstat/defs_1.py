@@ -27,6 +27,7 @@ def get_games_in_range(d_s , d_f):
 
     d1 = date.fromisoformat(d_s)
     d2 = date.fromisoformat(d_f)
+    
     games1  = games.objects.filter(g_date__gte=d1, g_date__lte=d2) 
     
     games_is_range=[]
@@ -49,11 +50,11 @@ def get_akas (t_id):
 # Получение данных по id команды (список с ака), начальная и конечная даты
 def get_games_info (t_id_list , data_start = '2025-01-01', data_finish = '2025-12-31'):
  
-
-    g_r = get_games_in_range(data_start,data_finish)
-
-    g_info = gmdata.objects.filter(gd_team__in=t_id_list, gd_game__in=g_r).order_by('gd_game')
     
+    g_r = get_games_in_range(data_start,data_finish)
+   
+    g_info = gmdata.objects.filter(gd_team__in=t_id_list, gd_game__in=g_r).order_by('gd_game')
+     
     return (g_info)
 
 def get_all_teams():
@@ -143,7 +144,7 @@ def check_game_name(g_name):
             g_sets=i[2]
             name_len_diff=abs(name_len_diff1)
     
-    if a>1 or name_len_diff>5:
+    if a>2 or name_len_diff>7:
         a_name='NOT FOUND'
         g_id=0
     return (a_name, g_id, g_sets)  
@@ -152,8 +153,6 @@ def parse_excel_to_dict_list(filepath: str, sheet_name='Sheet1'):
     # Загружаем Excel файл в DataFrame
     df = pd.read_excel(filepath)
                        #,sheet_name=sheet_name)
-
-    #print (df)                      
 
     # Преобразуем DataFrame в список словарей
     dict_list = df.to_dict(orient='records')

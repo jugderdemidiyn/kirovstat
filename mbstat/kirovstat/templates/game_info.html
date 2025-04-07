@@ -24,7 +24,7 @@
     <tbody>
         {% for g_data in g_data_info %}
         <tr>
-            <td scope="col"><a href=/kirovstat/team_info/?team_id={{g_data.gd_team_id}} > <b>{{g_data.gd_team}}</b></a></td>
+            <td scope="col"><a href=/kirovstat/team_info/?team_id={{g_data.gd_team_id}}&year={{year}} > <b>{{g_data.gd_team}}</b></a></td>
             <td scope="col">{{g_data.gd_set1}}</td>
             <td scope="col">{{g_data.gd_set2}}</td>           
             <td scope="col">{{g_data.gd_set3}}</td>

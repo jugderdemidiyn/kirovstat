@@ -11,6 +11,7 @@ def index(request):
     #game1 = games.objects.all() 
     game1 = get_games_all_in_range('2025-01-01','2025-12-31')
     t_data = get_all_teams()     
+    year=2025 
 
     
     place_data_a_1=get_place(1,type1=[1,2,3,4,5]) 
@@ -27,7 +28,7 @@ def index(request):
     place_data_tem_3=get_place(3,type1=[3])  
      
 
-    context = {'game1': game1, 'g_count' : g_count, 't_data' : t_data, \
+    context = {'game1': game1, 'g_count' : g_count, 't_data' : t_data, 'year' : year, \
                'place_data_a_1' : place_data_a_1, 'place_data_a_2' : place_data_a_2,'place_data_a_3' : place_data_a_3,\
                'place_data_cl_1' : place_data_cl_1, 'place_data_cl_2' : place_data_cl_2,'place_data_cl_3' : place_data_cl_3,\
                'place_data_tz_1' : place_data_tz_1, 'place_data_tz_2' : place_data_tz_2,'place_data_tz_3' : place_data_tz_3,\
@@ -40,7 +41,12 @@ def index(request):
 
 def team_info (request):
 
-    team_id = request.GET['team_id']
+    test1 = request.GET
+    team_id= test1['team_id']
+    try:
+       year = test1['year']
+    except:
+       year='2025'
     # Основной ID команды
     main_id = teams.objects.values('t_aka_id').get(pk=team_id)['t_aka_id']
     # все названия команды
@@ -48,8 +54,10 @@ def team_info (request):
     t_foto = teams.objects.values('t_foto').get(pk=main_id)['t_foto']
     
     akas_list=get_akas(main_id)
-    t_data_info = get_games_info (akas_list,'2025-01-01','2025-12-31')
-
+    s_data = year + '-01-01'
+    f_data = year + '-12-31'
+    t_data_info = get_games_info (akas_list,s_data,f_data)
+    
     Max_place =t_data_info.aggregate(Min('gd_place')) ['gd_place__min']
     Min_place =t_data_info.aggregate(Max('gd_place')) ['gd_place__max']    
     g_count = len(t_data_info)
@@ -76,7 +84,10 @@ def team_info (request):
     l=[1,2,3,4,5,6,7,8,9,10]
          
 
-    context = {'t_data_info': t_data_info, 't_names': t_names, 't_foto': t_foto, 'Max_place': Max_place,'Min_place' :Min_place, 'g_count':g_count, 'l': l,'l_p' : l_p,'l_p_class' : l_p_class,'l_p_tuz' : l_p_tuz, 'l_p_tem' :l_p_tem,'l_p_jub':l_p_jub }
+    context = {'team_id':team_id,'t_data_info': t_data_info, 't_names': t_names, 't_foto': t_foto, \
+               'Max_place': Max_place,'Min_place' :Min_place, 'g_count':g_count, \
+               'l': l,'l_p' : l_p,'l_p_class' : l_p_class,'l_p_tuz' : l_p_tuz, \
+               'l_p_tem' :l_p_tem,'l_p_jub':l_p_jub , 'year' : year}
     
     return render(request, 'team_info.html', context)
 
@@ -88,7 +99,8 @@ def game_info (request):
     g_data_info = gmdata.objects.filter(gd_game = game_id).order_by('gd_place')
     game_info =  games.objects.get(pk=game_id)
     a = games.objects.get(pk=game_id).g_sets
-   
+    year = games.objects.values('g_date').get(pk=game_id)['g_date'].year
+    
     tours=[]
     for i in range(1, a+1): 
        tours.append(i)
@@ -98,7 +110,7 @@ def game_info (request):
     else: change_yes=0
 
     
-    context = {'g_data_info': g_data_info, 'game_info': game_info, 'tours' : tours, 'change_yes' : change_yes }
+    context = {'g_data_info': g_data_info, 'year' : year, 'game_info': game_info, 'tours' : tours, 'change_yes' : change_yes }
     
     return render (request, 'game_info.html', context )
 
@@ -127,7 +139,7 @@ def year_stat(request):
     place_data_tem_3=get_place(3,type1=[3],data_start = s_data, data_finish = f_data)  
      
 
-    context = {'game1': game1, 'g_count' : g_count, 't_data' : t_data, \
+    context = {'game1': game1, 'g_count' : g_count, 't_data' : t_data, 'year' : year, \
                'place_data_a_1' : place_data_a_1, 'place_data_a_2' : place_data_a_2,'place_data_a_3' : place_data_a_3,\
                'place_data_cl_1' : place_data_cl_1, 'place_data_cl_2' : place_data_cl_2,'place_data_cl_3' : place_data_cl_3,\
                'place_data_tz_1' : place_data_tz_1, 'place_data_tz_2' : place_data_tz_2,'place_data_tz_3' : place_data_tz_3,\

@@ -36,6 +36,7 @@ display: none;
 }
 </style>
 
+<h4>{{ year }} год </h4>
 <h4>Всего игр в этом году- {{ g_count }} </h4>
 
 
@@ -99,7 +100,7 @@ display: none;
 
       {% for key,values in place_data_a_1.items %}
          <li>
-         <a href=/kirovstat/team_info/?team_id={{key}} >{{values.1}} </a>-  {{values.0}}  <br>
+         <a href=/kirovstat/team_info/?team_id={{key}}&year={{year}}  >{{values.1}} </a>-  {{values.0}}  <br>
          </li>   
       {%endfor%}
       </ul>
@@ -110,7 +111,7 @@ display: none;
 
       {% for key,values in place_data_cl_1.items %}
       <li>
-         <a href=/kirovstat/team_info/?team_id={{key}} >{{values.1}} </a>-  {{values.0}}  <br>
+         <a href=/kirovstat/team_info/?team_id={{key}}&year={{year}} >{{values.1}} </a>-  {{values.0}}  <br>
       </li>
       {%endfor%}
       </ul>
@@ -121,7 +122,7 @@ display: none;
 
       {% for key,values in place_data_tz_1.items %}
       <li>
-         <a href=/kirovstat/team_info/?team_id={{key}} >{{values.1}} </a>-  {{values.0}}  <br>
+         <a href=/kirovstat/team_info/?team_id={{key}}&year={{year}} >{{values.1}} </a>-  {{values.0}}  <br>
       </li>
       {%endfor%}
       </ul>
@@ -132,7 +133,7 @@ display: none;
 
       {% for key,values in place_data_tem_1.items %}
       <li>
-         <a href=/kirovstat/team_info/?team_id={{key}} >{{values.1}} </a>-  {{values.0}}  <br>
+         <a href=/kirovstat/team_info/?team_id={{key}}&year={{year}} >{{values.1}} </a>-  {{values.0}}  <br>
       </li>
       {%endfor%}
       
@@ -147,7 +148,7 @@ display: none;
 
       {% for key,values in place_data_a_2.items %}
       <li>
-         <a href=/kirovstat/team_info/?team_id={{key}} >{{values.1}} </a>-  {{values.0}}  <br>
+         <a href=/kirovstat/team_info/?team_id={{key}}&year={{year}} >{{values.1}} </a>-  {{values.0}}  <br>
       </li>
       {%endfor%}
       
@@ -158,7 +159,7 @@ display: none;
 
       {% for key,values in place_data_cl_2.items %}
       <li>
-         <a href=/kirovstat/team_info/?team_id={{key}} >{{values.1}} </a>-  {{values.0}}  <br>
+         <a href=/kirovstat/team_info/?team_id={{key}}&year={{year}} >{{values.1}} </a>-  {{values.0}}  <br>
       </li>
       {%endfor%}
    
@@ -169,7 +170,7 @@ display: none;
 
       {% for key,values in place_data_tz_2.items %}
       <li>
-         <a href=/kirovstat/team_info/?team_id={{key}} >{{values.1}} </a>-  {{values.0}}  <br>
+         <a href=/kirovstat/team_info/?team_id={{key}}&year={{year}} >{{values.1}} </a>-  {{values.0}}  <br>
       </li>
       {%endfor%}
    
@@ -180,7 +181,7 @@ display: none;
 
       {% for key,values in place_data_tem_2.items %}
       <li>
-         <a href=/kirovstat/team_info/?team_id={{key}} >{{values.1}} </a>-  {{values.0}}  <br>
+         <a href=/kirovstat/team_info/?team_id={{key}}&year={{year}} >{{values.1}} </a>-  {{values.0}}  <br>
       </li>
       {%endfor%}
       
@@ -194,7 +195,7 @@ display: none;
 
       {% for key,values in place_data_a_3.items %}
       <li>
-         <a href=/kirovstat/team_info/?team_id={{key}} >{{values.1}} </a>-  {{values.0}}  <br>
+         <a href=/kirovstat/team_info/?team_id={{key}}&year={{year}} >{{values.1}} </a>-  {{values.0}}  <br>
       </li>
       {%endfor%}
       </ul></td>   
@@ -204,7 +205,7 @@ display: none;
 
       {% for key,values in place_data_cl_3.items %}
       <li>
-         <a href=/kirovstat/team_info/?team_id={{key}} >{{values.1}} </a>-  {{values.0}}  <br>
+         <a href=/kirovstat/team_info/?team_id={{key}}&year={{year}} >{{values.1}} </a>-  {{values.0}}  <br>
       </li>
       {%endfor%}
    
@@ -215,7 +216,7 @@ display: none;
 
       {% for key,values in place_data_tz_3.items %}
       <li>
-         <a href=/kirovstat/team_info/?team_id={{key}} >{{values.1}} </a>-  {{values.0}}  <br>
+         <a href=/kirovstat/team_info/?team_id={{key}}&year={{year}} >{{values.1}} </a>-  {{values.0}}  <br>
       </li>
       {%endfor%}
    
@@ -226,7 +227,7 @@ display: none;
 
       {% for key,values in place_data_tem_3.items %}
       <li>
-         <a href=/kirovstat/team_info/?team_id={{key}} >{{values.1}} </a>-  {{values.0}}  <br>
+         <a href=/kirovstat/team_info/?team_id={{key}}&year={{year}} >{{values.1}} </a>-  {{values.0}}  <br>
       </li>
       {%endfor%}
       </ul></td>

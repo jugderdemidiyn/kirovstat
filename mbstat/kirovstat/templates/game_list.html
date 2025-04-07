@@ -66,7 +66,7 @@ display: none;
 
 
 <div id="click-expand1"/></div>
-<div class="wrap-expand-table"><a href="#close">Свернуть</a><a href="#click-expand1">Развернуть</a>
+<div class="wrap-expand-table"><a href="#close">Свернуть</a><a href="#click-expand1">Развернуть</a></div>
 <table class = 'table mt-3 table-bordered table-hover table-striped' >
     <thead class="table-dark">
         <tr>
@@ -79,7 +79,7 @@ display: none;
     <tbody>
       {% for game in game1 %}
         <tr>
-         <td class="text-left" ><a href=/kirovstat/game_info/?game_id={{game.id}} ><b>{{game.g_name}} </b></a></td>
+         <td class="text-left" ><a href=/kirovstat/game_info/?game_id={{game.id}}&year={{year}} ><b>{{game.g_name}} </b></a></td>
          <td> {{game.g_teams}} </td>
          {%if game.g_type_id == 2 %}
             <td> <button type="button" class="btn btn-success"> </button> </td>
@@ -98,7 +98,9 @@ display: none;
       {% endfor %} 
     </tbody>
 </table>
-<a href="#close">Cвернуть</a><a href="#click-expand1">Посмотреть весь список</a><br><br>
+<a href="#close">Cвернуть</a><a href="#click-expand1">Посмотреть весь список</a>
+
+<br><br>
 <button type="button" class="btn btn-secondary"></button> - Класcика
 <button type="button" class="btn btn-info"> </button> Тематическая классика
 <button type="button" class="btn btn-success"> </button> Туц-туц 
@@ -129,7 +131,7 @@ display: none;
 
       {% for key,values in place_data_a_1.items %}
          <li>
-         <a href=/kirovstat/team_info/?team_id={{key}} >{{values.1}} </a>-  {{values.0}}  <br>
+         <a href=/kirovstat/team_info/?team_id={{key}}&year={{year}} >{{values.1}} </a>-  {{values.0}}  <br>
          </li>   
       {%endfor%}
       </ul>
@@ -140,7 +142,7 @@ display: none;
 
       {% for key,values in place_data_cl_1.items %}
       <li>
-         <a href=/kirovstat/team_info/?team_id={{key}} >{{values.1}} </a>-  {{values.0}}  <br>
+         <a href=/kirovstat/team_info/?team_id={{key}}&year={{year}} >{{values.1}} </a>-  {{values.0}}  <br>
       </li>
       {%endfor%}
       </ul>
@@ -151,7 +153,7 @@ display: none;
 
       {% for key,values in place_data_tz_1.items %}
       <li>
-         <a href=/kirovstat/team_info/?team_id={{key}} >{{values.1}} </a>-  {{values.0}}  <br>
+         <a href=/kirovstat/team_info/?team_id={{key}}&year={{year}} >{{values.1}} </a>-  {{values.0}}  <br>
       </li>
       {%endfor%}
       </ul>
@@ -162,7 +164,7 @@ display: none;
 
       {% for key,values in place_data_tem_1.items %}
       <li>
-         <a href=/kirovstat/team_info/?team_id={{key}} >{{values.1}} </a>-  {{values.0}}  <br>
+         <a href=/kirovstat/team_info/?team_id={{key}}&year={{year}} >{{values.1}} </a>-  {{values.0}}  <br>
       </li>
       {%endfor%}
       
@@ -177,7 +179,7 @@ display: none;
 
       {% for key,values in place_data_a_2.items %}
       <li>
-         <a href=/kirovstat/team_info/?team_id={{key}} >{{values.1}} </a>-  {{values.0}}  <br>
+         <a href=/kirovstat/team_info/?team_id={{key}}&year={{year}} >{{values.1}} </a>-  {{values.0}}  <br>
       </li>
       {%endfor%}
       
@@ -188,7 +190,7 @@ display: none;
 
       {% for key,values in place_data_cl_2.items %}
       <li>
-         <a href=/kirovstat/team_info/?team_id={{key}} >{{values.1}} </a>-  {{values.0}}  <br>
+         <a href=/kirovstat/team_info/?team_id={{key}}&year={{year}} >{{values.1}} </a>-  {{values.0}}  <br>
       </li>
       {%endfor%}
    
@@ -199,7 +201,7 @@ display: none;
 
       {% for key,values in place_data_tz_2.items %}
       <li>
-         <a href=/kirovstat/team_info/?team_id={{key}} >{{values.1}} </a>-  {{values.0}}  <br>
+         <a href=/kirovstat/team_info/?team_id={{key}}&year={{year}} >{{values.1}} </a>-  {{values.0}}  <br>
       </li>
       {%endfor%}
    
@@ -210,7 +212,7 @@ display: none;
 
       {% for key,values in place_data_tem_2.items %}
       <li>
-         <a href=/kirovstat/team_info/?team_id={{key}} >{{values.1}} </a>-  {{values.0}}  <br>
+         <a href=/kirovstat/team_info/?team_id={{key}}&year={{year}} >{{values.1}} </a>-  {{values.0}}  <br>
       </li>
       {%endfor%}
       
@@ -224,7 +226,7 @@ display: none;
 
       {% for key,values in place_data_a_3.items %}
       <li>
-         <a href=/kirovstat/team_info/?team_id={{key}} >{{values.1}} </a>-  {{values.0}}  <br>
+         <a href=/kirovstat/team_info/?team_id={{key}}&year={{year}} >{{values.1}} </a>-  {{values.0}}  <br>
       </li>
       {%endfor%}
       </ul></td>   
@@ -234,7 +236,7 @@ display: none;
 
       {% for key,values in place_data_cl_3.items %}
       <li>
-         <a href=/kirovstat/team_info/?team_id={{key}} >{{values.1}} </a>-  {{values.0}}  <br>
+         <a href=/kirovstat/team_info/?team_id={{key}}&year={{year}} >{{values.1}} </a>-  {{values.0}}  <br>
       </li>
       {%endfor%}
    
@@ -245,7 +247,7 @@ display: none;
 
       {% for key,values in place_data_tz_3.items %}
       <li>
-         <a href=/kirovstat/team_info/?team_id={{key}} >{{values.1}} </a>-  {{values.0}}  <br>
+         <a href=/kirovstat/team_info/?team_id={{key}}&year={{year}} >{{values.1}} </a>-  {{values.0}}  <br>
       </li>
       {%endfor%}
    
@@ -256,7 +258,7 @@ display: none;
 
       {% for key,values in place_data_tem_3.items %}
       <li>
-         <a href=/kirovstat/team_info/?team_id={{key}} >{{values.1}} </a>-  {{values.0}}  <br>
+         <a href=/kirovstat/team_info/?team_id={{key}}&year={{year}} >{{values.1}} </a>-  {{values.0}}  <br>
       </li>
       {%endfor%}
       </ul></td>
