@@ -4,7 +4,8 @@
 
 
 <br>
-{{ game_info.g_name}}       <a class="btn btn-primary btn-sm" href={{game_info.g_url}} target="_blank" role="button"> VK </a>
+<div>{{ game_info.g_name}}       <a class="btn btn-primary btn-sm" href={{game_info.g_url}} target="_blank" role="button"> VK </a></div>
+
 <br>
 
 <table class = 'table mt-1 table-bordered table-striped table-hover' >
@@ -56,5 +57,6 @@
     </tbody>
 </table>
 
+<div><a href="javascript:window.history.back();"><button type="button" class="btn btn-dark">Назад</button></a></button>
 
 {% endblock %}
