@@ -73,7 +73,7 @@ class gmdata (models.Model):
            
 class weekr (models.Model):
     
-    week_year = models.CharField(default="Номер недели и год", max_length=100)
+    #week_year = models.CharField(default="Номер недели и год", max_length=100)
     week_start = models.DateField(verbose_name='Начало недели')
     week_end = models.DateField(verbose_name='Конец недели')
     week_points_tuz = models.CharField(default="Очки команд за музыкалку",max_length=500)
