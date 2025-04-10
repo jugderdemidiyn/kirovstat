@@ -1,9 +1,10 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.forms import ModelForm,forms
+import datetime
 
 
-from . models import game_type, games, teams, gmdata
+from . models import game_type, games, teams, gmdata, weekr
 from . defs_1 import * 
 
 
@@ -98,3 +99,37 @@ def add_game (request):
 
 
     return render(request, 'add_game_file.html')
+
+
+def add_res_to_stat(request):
+
+    if request.method == 'GET' and request.GET.get('add_weeks'):
+    
+        date_start=datetime.datetime(2015,12,28)
+        date_end = datetime.datetime(2025,12,31)
+        date=date_start
+        
+        while date<date_end:
+    
+            end_week = date + datetime.timedelta(days=6)  
+            
+            if weekr.objects.values('week_start').get(pk=1)['week_start']:
+                print('Уже есть')
+                break
+            weeks_2_add = weekr(
+                week_start=date,
+                week_end=end_week
+                )
+            #weeks_2_add.save()
+            #print (weeks_2_add)
+            date= date + datetime.timedelta(days=7)
+        
+        context = { 'res': " Занесли недели, позырь в PGAdmin" }
+
+        return render(request, 'statstat.html', context)        
+   
+
+
+
+    context = { 'res': " В целом нихуя" }
+    return render(request, 'statstat.html',context)

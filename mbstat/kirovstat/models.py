@@ -76,12 +76,12 @@ class weekr (models.Model):
     #week_year = models.CharField(default="Номер недели и год", max_length=100)
     week_start = models.DateField(verbose_name='Начало недели')
     week_end = models.DateField(verbose_name='Конец недели')
-    week_points_tuz = models.CharField(default="Очки команд за музыкалку",max_length=500)
-    week_points_сlass = models.CharField(default="Очки команд за классику",max_length=500)
-    week_points_summ = models.CharField(default="Очки команд всего",max_length=500)
-    week_rating_tuz = models.CharField(default="10 рейтинга за музыкалку",max_length=200)
-    week_rating_сlass = models.CharField(default="10 рейтинга за классику",max_length=200)
-    week_rating_summ = models.CharField(default="10 рейтинга всего",max_length=200)
+    week_points_tuz = models.CharField(verbose_name="Очки команд за музыкалку",max_length=500)
+    week_points_сlass = models.CharField(verbose_name="Очки команд за классику",max_length=500)
+    week_points_summ = models.CharField(verbose_name="Очки команд всего",max_length=500)
+    week_rating_tuz = models.CharField(verbose_name="10 рейтинга за музыкалку",max_length=200)
+    week_rating_сlass = models.CharField(verbose_name="10 рейтинга за классику",max_length=200)
+    week_rating_summ = models.CharField(verbose_name="10 рейтинга всего",max_length=200)
     
 
     class Meta: 
