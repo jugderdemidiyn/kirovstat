@@ -4,11 +4,17 @@ import collections as coll
 from operator import itemgetter
 import pandas as pd
 
-#Получение игр по начальной и конечно дате
+COUNT_POINT= (0,25,18,15,12,10,8,6,4,2,1)
+
+#id игр  -   1 классика 2 туц 3 тематика 4 юбилей 5 классика тематика
+
+
+#Получение данных игр по начальной и конечно дате, возвращает выборку
 def get_games_all_in_range(d_s , d_f):
 
     d1 = date.fromisoformat(d_s)
     d2 = date.fromisoformat(d_f)
+    
     games1  = games.objects.filter(g_date__gte=d1, g_date__lte=d2) 
     
     return(games1)
@@ -22,7 +28,7 @@ def get_games_count(d_s , d_f):
     
     return(g_count)
 
-#Получение списка игр по начальной и конечно дате
+#Получение списка игр по начальной и конечно дате, возвращает список с id
 def get_games_in_range(d_s , d_f):
 
     d1 = date.fromisoformat(d_s)
@@ -158,3 +164,7 @@ def parse_excel_to_dict_list(filepath: str, sheet_name='Sheet1'):
     dict_list = df.to_dict(orient='records')
 
     return dict_list  
+
+# объединить словари 
+def merge_dicts(dict1, dict2):
+    return {k: dict1.get(k, 0) + dict2.get(k, 0) for k in set(dict1) | set(dict2)}

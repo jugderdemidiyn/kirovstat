@@ -8,6 +8,7 @@ from . models import game_type, games, teams, gmdata, weekr
 from . defs_1 import * 
 
 
+
 class AddGameData(ModelForm):
     class Meta:
         model = gmdata
@@ -120,15 +121,68 @@ def add_res_to_stat(request):
                 week_start=date,
                 week_end=end_week
                 )
-            #weeks_2_add.save()
-            #print (weeks_2_add)
+            
             date= date + datetime.timedelta(days=7)
         
         context = { 'res': " Занесли недели, позырь в PGAdmin" }
+  
+
 
         return render(request, 'statstat.html', context)        
    
+    if request.method == 'GET' and request.GET.get('count_weeks'):
 
+        weeks = weekr.objects.all()
+        
+        for i in weeks:
+
+                       
+            
+            team_point_week_summ={}
+            team_point_week_tuz={}
+            team_point_week_class={}
+
+            for j in get_games_in_range (str(i.week_start),str(i.week_end)):
+                
+                g_data_info = gmdata.objects.filter(gd_game = j).order_by('gd_place')
+                game_curr_type = games.objects.values('g_type').get(pk=j)['g_type']
+                
+                team_point_week={}
+
+                for place in range(1,11):
+                    
+                    for tt in g_data_info:
+                        if tt.gd_place == place:
+                        
+                            if team_point_week.get(tt.gd_team.id):
+                               team_point_week[tt.gd_team.id]=team_point_week[tt.gd_team.id]+COUNT_POINT[place]
+                            else:
+                               team_point_week [tt.gd_team.id]=COUNT_POINT[place]
+                               
+                if not game_curr_type == 4: 
+                    if game_curr_type == 2:
+                        team_point_week_tuz=merge_dicts(team_point_week_tuz, team_point_week)
+                        
+                    elif game_curr_type == 1 or game_curr_type == 5:
+                        team_point_week_class=merge_dicts(team_point_week_class, team_point_week)
+
+                    team_point_week_summ=merge_dicts(team_point_week_summ, team_point_week)
+
+            #print('summ ', team_point_week_summ,' tuz', team_point_week_tuz, 'class ', team_point_week_tuz,)               
+
+            new_data=i
+        
+            i.week_points_tuz = team_point_week_tuz
+            i.week_points_сlass = team_point_week_class
+            i.week_points_summ = team_point_week_summ
+            
+            new_data.save()
+                    
+        
+               
+        context = { 'res': " Занесли данные по неделям, позырь в PGAdmin" }
+
+        return render(request, 'statstat.html', context)
 
 
     context = { 'res': " В целом нихуя" }
