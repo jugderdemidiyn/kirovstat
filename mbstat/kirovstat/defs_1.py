@@ -165,6 +165,6 @@ def parse_excel_to_dict_list(filepath: str, sheet_name='Sheet1'):
 
     return dict_list  
 
-# объединить словари 
+# объединить словари со сложение айтемов
 def merge_dicts(dict1, dict2):
     return {k: dict1.get(k, 0) + dict2.get(k, 0) for k in set(dict1) | set(dict2)}
