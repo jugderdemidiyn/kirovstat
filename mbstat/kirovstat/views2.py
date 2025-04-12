@@ -2,10 +2,11 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.forms import ModelForm,forms
 import datetime
-
+from itertools import islice
 
 from . models import game_type, games, teams, gmdata, weekr
 from . defs_1 import * 
+from . defs_2 import * 
 
 
 
@@ -31,10 +32,7 @@ def add_game (request):
         game_id_for_add=0
         
         g_name,g_id,tours=check_game_name(list(dl[0])[0])
-        
-        # print(check_game_name(list(dl[0])[0]))
-        
-        
+                
         cheked_g_name [g_name]= g_id
         cheked_g_name ['Туров']= tours
                 
@@ -101,9 +99,12 @@ def add_game (request):
 
     return render(request, 'add_game_file.html')
 
+ 
+
 
 def add_res_to_stat(request):
 
+    # закидывем номера и даты недель
     if request.method == 'GET' and request.GET.get('add_weeks'):
     
         date_start=datetime.datetime(2015,12,28)
@@ -129,7 +130,9 @@ def add_res_to_stat(request):
 
 
         return render(request, 'statstat.html', context)        
-   
+    
+    # добавление заработанных очков на неделе
+
     if request.method == 'GET' and request.GET.get('count_weeks'):
 
         weeks = weekr.objects.all()
@@ -173,7 +176,7 @@ def add_res_to_stat(request):
             new_data=i
         
             i.week_points_tuz = team_point_week_tuz
-            i.week_points_сlass = team_point_week_class
+            i.week_points_class = team_point_week_class
             i.week_points_summ = team_point_week_summ
             
             new_data.save()
@@ -181,9 +184,33 @@ def add_res_to_stat(request):
         
                
         context = { 'res': " Занесли данные по неделям, позырь в PGAdmin" }
+       
+        return render(request, 'statstat.html', context)
+
+    # подсчет и занесение рейтинга за последние 26 недель
+
+    if request.method == 'GET' and request.GET.get('rating_4_id'):
+
+        weeks = weekr.objects.filter(id__gte=28)
+        
+        for i in weeks:
+           
+            t,c,s = count_points_4_date(r_data=i.week_end,weeks=26)
+            #print (dict(list(islice(c.items(), 0, 10))))
+
+            new_data=i
+
+            i.week_rating_tuz = dict(list(islice(t.items(), 0, 10)))
+            i.week_rating_class = dict(list(islice(c.items(), 0, 10)))
+            i.week_rating_summ = dict(list(islice(s.items(), 0, 10)))
+        
+            new_data.save()
+
+        context = { 'res': " ННННННННН " }
 
         return render(request, 'statstat.html', context)
 
-
     context = { 'res': " В целом нихуя" }
     return render(request, 'statstat.html',context)
+
+

@@ -4,6 +4,7 @@ from django.http import JsonResponse
 from django.db.models import Avg, Max, Min, Sum
 from . models import game_type, games, teams, gmdata
 from . defs_1 import * 
+from . defs_2 import *
 
 
 def index(request): 
@@ -27,8 +28,9 @@ def index(request):
     place_data_tem_2=get_place(2,type1=[3])  
     place_data_tem_3=get_place(3,type1=[3])  
      
+    rating_5 = get_rating(date=date.today(), weeks=5) 
 
-    context = {'game1': game1, 'g_count' : g_count, 't_data' : t_data, 'year' : year, \
+    context = { 'rating_5': rating_5, 'game1': game1, 'g_count' : g_count, 't_data' : t_data, 'year' : year, \
                'place_data_a_1' : place_data_a_1, 'place_data_a_2' : place_data_a_2,'place_data_a_3' : place_data_a_3,\
                'place_data_cl_1' : place_data_cl_1, 'place_data_cl_2' : place_data_cl_2,'place_data_cl_3' : place_data_cl_3,\
                'place_data_tz_1' : place_data_tz_1, 'place_data_tz_2' : place_data_tz_2,'place_data_tz_3' : place_data_tz_3,\
