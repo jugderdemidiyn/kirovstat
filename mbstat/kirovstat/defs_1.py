@@ -45,11 +45,13 @@ def get_games_in_range(d_s , d_f):
 #Получение все aka_id для команды
 def get_akas (t_id):
     
+    
     t_names = teams.objects.filter(t_aka=t_id)
     akas_list=[]
+    
     for t in t_names:
         akas_list.append (t.id)
-
+    
     return (akas_list)
 
 

@@ -138,9 +138,7 @@ def add_res_to_stat(request):
         weeks = weekr.objects.all()
         
         for i in weeks:
-
-                       
-            
+    
             team_point_week_summ={}
             team_point_week_tuz={}
             team_point_week_class={}
@@ -214,3 +212,11 @@ def add_res_to_stat(request):
     return render(request, 'statstat.html',context)
 
 
+
+def test1 (request):
+    
+    graph1 = build_graph_1()
+        
+    context = {'graph1' : graph1 }
+    
+    return render (request, 'test1.html', context )

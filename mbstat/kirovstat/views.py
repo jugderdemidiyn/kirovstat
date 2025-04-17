@@ -28,11 +28,6 @@ def index(request):
     place_data_tem_2=get_place(2,type1=[3])  
     place_data_tem_3=get_place(3,type1=[3])  
      
-<<<<<<< HEAD
-    rating_5 = get_rating(date=date.today(), weeks=5) 
-
-    context = { 'rating_5': rating_5, 'game1': game1, 'g_count' : g_count, 't_data' : t_data, 'year' : year, \
-=======
     rating_5_tuz,rating_5_class,rating_5_summ = get_rating(date=date.today(), weeks=5) 
 
    # for cl in rating_5_class:
@@ -44,9 +39,8 @@ def index(request):
  
 
 
-    context = { 'rating_5_tuz': rating_5_tuz, 'rating_5_class': rating_5_class,'rating_5_summ': rating_5_summ,\
-                'game1': game1, 'g_count' : g_count, 't_data' : t_data, 'year' : year, \
->>>>>>> ae8182423623b4500bb1c83d98928d15823e8fec
+    context = {'rating_5_tuz': rating_5_tuz, 'rating_5_class': rating_5_class,'rating_5_summ': rating_5_summ,\
+               'game1': game1, 'g_count' : g_count, 't_data' : t_data, 'year' : year, \
                'place_data_a_1' : place_data_a_1, 'place_data_a_2' : place_data_a_2,'place_data_a_3' : place_data_a_3,\
                'place_data_cl_1' : place_data_cl_1, 'place_data_cl_2' : place_data_cl_2,'place_data_cl_3' : place_data_cl_3,\
                'place_data_tz_1' : place_data_tz_1, 'place_data_tz_2' : place_data_tz_2,'place_data_tz_3' : place_data_tz_3,\
@@ -100,12 +94,15 @@ def team_info (request):
                l_p_jub[i]=l_p_jub[i]+1
 
     l=[1,2,3,4,5,6,7,8,9,10]
-         
+    
+    graph_tuz,graph_tuz,graph_summ = build_graph_team(t_id=team_id)
+          
 
     context = {'team_id':team_id,'t_data_info': t_data_info, 't_names': t_names, 't_foto': t_foto, \
                'Max_place': Max_place,'Min_place' :Min_place, 'g_count':g_count, \
                'l': l,'l_p' : l_p,'l_p_class' : l_p_class,'l_p_tuz' : l_p_tuz, \
-               'l_p_tem' :l_p_tem,'l_p_jub':l_p_jub , 'year' : year}
+               'l_p_tem' :l_p_tem,'l_p_jub':l_p_jub , 'year' : year,\
+               'graph_tuz':graph_tuz,'graph_class':graph_tuz,'graph_summ':graph_summ}
     
     return render(request, 'team_info.html', context)
 
