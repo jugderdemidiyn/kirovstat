@@ -87,5 +87,9 @@ def get_rating (date=date.today(), weeks=3):
     week_id_end = get_week_id (date)
     week_id_start = week_id_end - weeks
 
-    rating_data = weekr.objects.filter(id__gte=week_id_start, id__lte=week_id_end).values('week_end','week_rating_tuz','week_rating_class','week_rating_summ')
-    print (rating_data)
+    rating_data_tuz = weekr.objects.filter(id__gte=week_id_start, id__lte=week_id_end).values('week_end','week_rating_tuz')
+    rating_data_class = weekr.objects.filter(id__gte=week_id_start, id__lte=week_id_end).values('week_end','week_rating_class')
+    rating_data_summ = weekr.objects.filter(id__gte=week_id_start, id__lte=week_id_end).values('week_end','week_rating_summ')
+    #print (rating_data_class)
+
+    return(rating_data_tuz,rating_data_class,rating_data_summ)
