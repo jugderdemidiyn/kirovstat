@@ -143,7 +143,7 @@ def get_rating_for_team (rt_data=date.today(), weeks=20,team_id=0):
          
     #print(summ_graph)
         
-    return(tuz_graph,tuz_graph,summ_graph,main_name)
+    return(tuz_graph,class_graph,summ_graph,main_name)
 
 def build_graph_1():
    
