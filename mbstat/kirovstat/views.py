@@ -95,14 +95,14 @@ def team_info (request):
 
     l=[1,2,3,4,5,6,7,8,9,10]
     
-    graph_tuz,graph_tuz,graph_summ = build_graph_team(t_id=team_id)
+    graph_tuz,graph_class,graph_summ = build_graph_team(t_id=team_id)
           
 
     context = {'team_id':team_id,'t_data_info': t_data_info, 't_names': t_names, 't_foto': t_foto, \
                'Max_place': Max_place,'Min_place' :Min_place, 'g_count':g_count, \
                'l': l,'l_p' : l_p,'l_p_class' : l_p_class,'l_p_tuz' : l_p_tuz, \
                'l_p_tem' :l_p_tem,'l_p_jub':l_p_jub , 'year' : year,\
-               'graph_tuz':graph_tuz,'graph_class':graph_tuz,'graph_summ':graph_summ}
+               'graph_tuz':graph_tuz,'graph_class':graph_class,'graph_summ':graph_summ}
     
     return render(request, 'team_info.html', context)
 
