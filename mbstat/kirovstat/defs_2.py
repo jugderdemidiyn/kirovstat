@@ -6,6 +6,7 @@ import pandas as pd
 import datetime
 import matplotlib 
 import matplotlib.pyplot as plt
+import numpy as np
 import io
 import urllib, base64
 from . defs_1 import *
@@ -117,7 +118,7 @@ def get_rating_for_team (rt_data=date.today(), weeks=20,team_id=0):
     
     week_id_end = get_week_id (rating_data)
     week_id_start = week_id_end - weeks
-
+    
     tuz_team_points=0
     class_team_points=0
     summ_team_points=0
@@ -128,7 +129,8 @@ def get_rating_for_team (rt_data=date.today(), weeks=20,team_id=0):
     rating_data = weekr.objects.filter(id__gte=week_id_start, id__lte=week_id_end).values_list('week_rating_tuz','week_rating_class','week_rating_summ','week_end')
     
     for i in rating_data:
-      
+      #print(i)
+      #print(type(eval(i[0])))
       for j in aka_l:
           
           if eval(i[0]).get(j):
@@ -137,9 +139,10 @@ def get_rating_for_team (rt_data=date.today(), weeks=20,team_id=0):
            class_team_points =  eval(i[1])[j]
           if eval(i[2]).get(j): 
            summ_team_points =  eval(i[2])[j]
-      tuz_graph.append((str(i[0]),tuz_team_points))
-      class_graph.append((str(i[1]),class_team_points))
-      summ_graph.append((str(i[2]),summ_team_points))
+
+      tuz_graph.append((str(i[3]),tuz_team_points))
+      class_graph.append((str(i[3]),class_team_points))
+      summ_graph.append((str(i[3]),summ_team_points))
          
     #print(summ_graph)
         
@@ -148,7 +151,7 @@ def get_rating_for_team (rt_data=date.today(), weeks=20,team_id=0):
 def build_graph_1():
    
   rating_tuz,rating_class,rating_summ =get_rating()
-  #print(rating_tuz)
+  
   data_tuz=[]
   for i in rating_tuz:
     week_end=str(i['week_end'])
@@ -183,6 +186,7 @@ def build_graph_team(date=date.today(), weeks=60, t_id=1):
   plt.style.use(["fast"])
  
   pd.DataFrame(rating_tuz).plot(x=0,y=1,label=main_name)
+  plt.xticks(range(0,70,10),rotation=30,fontsize=7)
   plt.ylabel('Рейтинг за Туц-Туц')
   plt.xlabel('Неделя')
   plt.title('Музыкальный рейтинг')
@@ -193,6 +197,7 @@ def build_graph_team(date=date.today(), weeks=60, t_id=1):
   plt.close()
 
   pd.DataFrame(rating_class).plot(x=0,y=1,label=main_name)
+  plt.xticks(range(0,70,10),rotation=30,fontsize=7)
   plt.ylabel('Рейтинг за Классику')
   plt.xlabel('Неделя')
   plt.title('Классические игры')
@@ -203,7 +208,10 @@ def build_graph_team(date=date.today(), weeks=60, t_id=1):
   plt.close()
 
   
+  
+   
   pd.DataFrame(rating_summ).plot(x=0,y=1,label=main_name)
+  plt.xticks(range(0,70,10),rotation=30,fontsize=7)
   plt.ylabel('Суммарный рейтинг')
   plt.xlabel('Неделя')
   plt.title('Общяя статитика')
