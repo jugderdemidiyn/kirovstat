@@ -79,9 +79,9 @@ class weekr (models.Model):
     week_points_tuz = models.CharField(verbose_name="Очки команд за музыкалку",max_length=500)
     week_points_class = models.CharField(verbose_name="Очки команд за классику",max_length=500)
     week_points_summ = models.CharField(verbose_name="Очки команд всего",max_length=500)
-    week_rating_tuz = models.CharField(verbose_name="10 рейтинга за музыкалку",max_length=200)
-    week_rating_class = models.CharField(verbose_name="10 рейтинга за классику",max_length=200)
-    week_rating_summ = models.CharField(verbose_name="10 рейтинга всего",max_length=200)
+    week_rating_tuz = models.CharField(verbose_name="Рейтинг за музыкалку",max_length=800)
+    week_rating_class = models.CharField(verbose_name="Рейтинг за классику",max_length=1200)
+    week_rating_summ = models.CharField(verbose_name="Рейтинг всего",max_length=2000)
     
 
     class Meta: 

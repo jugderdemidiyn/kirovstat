@@ -125,21 +125,21 @@ def get_rating_for_team (rt_data=date.today(), weeks=20,team_id=0):
     class_graph=[]
     summ_graph=[]
 
-    rating_data = weekr.objects.filter(id__gte=week_id_start, id__lte=week_id_end).values_list('week_points_tuz','week_points_class','week_points_summ','week_end')
+    rating_data = weekr.objects.filter(id__gte=week_id_start, id__lte=week_id_end).values_list('week_rating_tuz','week_rating_class','week_rating_summ','week_end')
     
     for i in rating_data:
       
       for j in aka_l:
           
-          if eval(i[0]).get(j): 
-           tuz_team_points = tuz_team_points + eval(i[0])[j]
+          if eval(i[0]).get(j):
+           tuz_team_points =  eval(i[0])[j]
           if eval(i[1]).get(j): 
-           class_team_points = class_team_points + eval(i[1])[j]
+           class_team_points =  eval(i[1])[j]
           if eval(i[2]).get(j): 
-           summ_team_points = summ_team_points + eval(i[2])[j]
-      tuz_graph.append((str(i[3]),tuz_team_points))
-      class_graph.append((str(i[3]),class_team_points))
-      summ_graph.append((str(i[3]),summ_team_points))
+           summ_team_points =  eval(i[2])[j]
+      tuz_graph.append((str(i[0]),tuz_team_points))
+      class_graph.append((str(i[1]),class_team_points))
+      summ_graph.append((str(i[2]),summ_team_points))
          
     #print(summ_graph)
         
