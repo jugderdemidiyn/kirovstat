@@ -28,7 +28,7 @@ def index(request):
     place_data_tem_2=get_place(2,type1=[3])  
     place_data_tem_3=get_place(3,type1=[3])  
      
-    rating_5_tuz,rating_5_class,rating_5_summ = get_rating(date=date.today(), weeks=5) 
+    #rating_5_tuz,rating_5_class,rating_5_summ = get_rating(date=date.today(), weeks=5) 
 
    # for cl in rating_5_class:
       #print(cl['week_end'])
@@ -39,7 +39,8 @@ def index(request):
  
 
 
-    context = {'rating_5_tuz': rating_5_tuz, 'rating_5_class': rating_5_class,'rating_5_summ': rating_5_summ,\
+    context = {
+       #'rating_5_tuz': rating_5_tuz, 'rating_5_class': rating_5_class,'rating_5_summ': rating_5_summ,\
                'game1': game1, 'g_count' : g_count, 't_data' : t_data, 'year' : year, \
                'place_data_a_1' : place_data_a_1, 'place_data_a_2' : place_data_a_2,'place_data_a_3' : place_data_a_3,\
                'place_data_cl_1' : place_data_cl_1, 'place_data_cl_2' : place_data_cl_2,'place_data_cl_3' : place_data_cl_3,\

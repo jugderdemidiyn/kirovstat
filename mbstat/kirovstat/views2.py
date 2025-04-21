@@ -185,7 +185,7 @@ def add_res_to_stat(request):
        
         return render(request, 'statstat.html', context)
 
-    # подсчет и занесение рейтинга за последние 26 недель
+    # подсчет и занесение рейтинга за последние 26 недель (iclice 10 первых мест)
 
     if request.method == 'GET' and request.GET.get('rating_4_id'):
 
@@ -193,18 +193,34 @@ def add_res_to_stat(request):
         
         for i in weeks:
            
-            t,c,s = count_points_4_date(r_data=i.week_end,weeks=26)
+            new_data=i
+            i.week_rating_tuz,i.week_rating_class,i.week_rating_summ =count_points_4_date(r_data=i.week_end,weeks=26)    
+            #t,c,s = count_points_4_date(r_data=i.week_end,weeks=26)
             #print (dict(list(islice(c.items(), 0, 10))))
 
-            new_data=i
+            #new_data=i
 
-            i.week_rating_tuz = dict(list(islice(t.items(), 0, 10)))
-            i.week_rating_class = dict(list(islice(c.items(), 0, 10)))
-            i.week_rating_summ = dict(list(islice(s.items(), 0, 10)))
+            #i.week_rating_tuz = dict(list(islice(t.items(), 0, 10)))
+            #i.week_rating_class = dict(list(islice(c.items(), 0, 10)))
+            #i.week_rating_summ = dict(list(islice(s.items(), 0, 10)))
         
             new_data.save()
 
         context = { 'res': " ННННННННН " }
+
+        return render(request, 'statstat.html', context)
+    # подсчет и занесение рейтинга за последние 26 недель (iclice 10 первых мест)
+
+    if request.method == 'GET' and request.GET.get('fill_dicts'):
+
+        weeks = weekr.objects.filter(id__gte=1)
+        
+        for i in weeks:
+            new_data=i
+            i.week_rating_tuz,i.week_rating_class,i.week_rating_summ ='{}','{}','{}'
+            print(new_data)
+            new_data.save()
+            context = { 'res': " Словари " }
 
         return render(request, 'statstat.html', context)
 
