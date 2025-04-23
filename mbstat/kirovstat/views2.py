@@ -209,7 +209,7 @@ def add_res_to_stat(request):
         context = { 'res': " ННННННННН " }
 
         return render(request, 'statstat.html', context)
-    # подсчет и занесение рейтинга за последние 26 недель (iclice 10 первых мест)
+    
 
     if request.method == 'GET' and request.GET.get('fill_dicts'):
 
