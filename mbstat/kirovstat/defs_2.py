@@ -111,7 +111,7 @@ def get_rating_for_team (rt_data=date.today(), weeks=20,team_id=0):
 
     main_id = teams.objects.values('t_aka_id').get(pk=team_id)['t_aka_id']
     main_name = teams.objects.values('t_name').get(pk=main_id)['t_name']
-    print(main_name)
+    
     aka_l=get_akas(main_id)
     
     rating_data=rt_data
