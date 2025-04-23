@@ -108,7 +108,8 @@ def check_team_name(t_name):
     a=20
     a_name='нет команды'
     #a_id=0
-    name_len_diff=40
+    name_len_diff=20
+
     for i in t_names:
         
         a1=len(set(t_name.lower())-set (i[0].lower()))
@@ -143,9 +144,12 @@ def check_game_name(g_name):
             a_name=i[0]
             g_id=i[1]
             g_sets=i[2]
+            name_len_diff=0
+            a=0
+            
 
         elif a1<a or (a1==a and abs(name_len_diff1)<name_len_diff):
-            #print(i[1])
+            
             a=a1
             a_name=i[0]
             g_id=i[1]
