@@ -189,12 +189,13 @@
   </tbody>
 </table>
 
-<div> <h3>  Рейтинг за последний год </h3>
+<div> <h3> <a href=/kirovstat/ratings/ > Рейтинг за последний год </a></h3></div>
         
   <img src="data:image/png;base64,{{ graph_summ }}" alt="" >
   <img src="data:image/png;base64,{{ graph_tuz }}" alt="" >
   <img src="data:image/png;base64,{{ graph_class }}" alt="" >
-</div>
 
-<div>&nbsp;&nbsp;&nbsp;<a href="javascript:window.history.back();"><button type="button" class="btn btn-dark">Назад</button></a></button></div>
+
+
+<button type="button" class="btn btn-dark" onclick="window.history.back(); return true;">Назад</button>
 {% endblock %}

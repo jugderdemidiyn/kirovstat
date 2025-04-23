@@ -163,3 +163,5 @@ def year_stat(request):
  
     
     return render(request, 'year_stat.html', context)   
+
+

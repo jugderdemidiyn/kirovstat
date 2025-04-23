@@ -236,3 +236,11 @@ def test1 (request):
     context = {'graph1' : graph1 }
     
     return render (request, 'test1.html', context )
+
+
+def ratings(request): 
+      
+
+    context  ={}
+
+    return render(request, 'ratings.html', context)   
