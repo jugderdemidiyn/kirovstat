@@ -164,4 +164,20 @@ def year_stat(request):
     
     return render(request, 'year_stat.html', context)   
 
+def compare (request):
+
+   compare_yes=0
+   t_data = get_all_teams() 
+
+   if request.method == 'GET' and request.GET.get('team_id1') and request.GET.get('team_id2'):
+
+
+
+
+      compare_yes=1
+
+   context={'t_data' : t_data, 'compare_yes' : compare_yes}
+
+   return render(request, 'compare.html', context)
+
 

@@ -1,0 +1,55 @@
+
+{% extends "base.html" %}
+{% block content %}
+
+{% load static %}
+
+<h3>Сравнение команд</h3>
+<br>
+<form action = "/kirovstat/compare/"  method="get" target="_self">
+<Table>
+<td>
+   <h4>Команда 1  </h4>
+   <select class="js-select2" name="team_id1" placeholder="Выберите команду">
+   <option value=""></option>
+   {% for t in t_data %}
+	   <option value={{t.id}} >{{t.t_name}}</option>
+	{%endfor%}	
+   </select>
+</td>
+<td>
+   <h4>Команда 2  </h4>
+   <select class="js-select2" name="team_id2" placeholder="Выберите команду">
+   <option value=""></option>
+   {% for t in t_data%}
+	   <option value={{t.id}} >{{t.t_name}}</option>
+	{%endfor%}	
+   </select>
+</td>
+</Table>
+
+<br><button type="submit">Сравнить</button>
+
+</form>
+
+{% if compare_yes == 1 %}
+   
+   Сравнение Сравнение
+   <table>
+
+
+
+
+   </table>
+
+{% endif %}
+
+
+<tbody>
+
+
+  
+
+
+
+{% endblock %}
