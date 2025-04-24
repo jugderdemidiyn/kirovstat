@@ -85,11 +85,12 @@ def count_points_4_date(r_data=date.today(), weeks=40):
             else: summ_rat[i['id']]=s
 
     
-    tuz_rat_sort=dict(sorted(tuz_rat.items(), key=itemgetter(-1), reverse = True))
-    class_rat_sort=dict(sorted(class_rat.items(), key=itemgetter(-1), reverse = True))
-    summ_rat_sort=dict(sorted(summ_rat.items(), key=itemgetter(-1), reverse = True))
+    #tuz_rat_sort=dict(sorted(tuz_rat.items(), key=itemgetter(-1), reverse = True))
+    #class_rat_sort=dict(sorted(class_rat.items(), key=itemgetter(-1), reverse = True))
+    #summ_rat_sort=dict(sorted(summ_rat.items(), key=itemgetter(-1), reverse = True))
 
-    return (tuz_rat_sort,class_rat_sort,summ_rat_sort)
+    #return (tuz_rat_sort,class_rat_sort,summ_rat_sort)
+    return (tuz_rat,class_rat,summ_rat)
 
 
 def get_rating (date=date.today(), weeks=4):
@@ -288,8 +289,6 @@ def build_graph_team_compare(date=date.today(), weeks=60, t_id1=1, t_id2=2,):
   plt.xticks(range(0,70,10),rotation=30,fontsize=7)
   plt.ylabel('Рейтинг за Классику')
   plt.xlabel('Неделя')
-  #plt.title('Общяя статитика')
-  #plt.legend(main_name1,main_name12,loc="upper left", fontsize=10, facecolor="lightgray", edgecolor="black")
   plt.legend(["{}".format(main_name1),"{}".format(main_name2)])
   buffer = io.BytesIO()
   plt.savefig(buffer, format='png')
@@ -300,15 +299,10 @@ def build_graph_team_compare(date=date.today(), weeks=60, t_id1=1, t_id2=2,):
   plt.xticks(range(0,70,10),rotation=30,fontsize=7)
   plt.ylabel('Рейтинг за Туц-Туц')
   plt.xlabel('Неделя')
-  #plt.title('Общяя статитика')
-  #plt.legend(loc="upper left", fontsize=10, facecolor="lightgray", edgecolor="black")
   plt.legend(["{}".format(main_name1),"{}".format(main_name2)])
   buffer = io.BytesIO()
   plt.savefig(buffer, format='png')
   graph_tuz = base64.b64encode(buffer.getvalue()).decode()
   plt.close()
-
-  print (main_name1, main_name2)
-
-  
+ 
   return (graph_tuz,graph_class,graph_summ)

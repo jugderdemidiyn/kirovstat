@@ -4,6 +4,7 @@
 
 {% load static %}
 
+
 <h3>Сравнение команд</h3>
 <br>
 <form action = "/kirovstat/compare/"  method="get" target="_self">
@@ -13,9 +14,22 @@
    <select class="js-select2" name="team_id1" placeholder="Выберите команду">
    <option value=""></option>
    {% for t in t_data %}
-	   <option value={{t.id}} >{{t.t_name}}</option>
+	   <option value={{t.id}}>{{t.t_name}}</option>
 	{%endfor%}	
    </select>
+   <link rel="stylesheet" href="{% static '/select2/dist/css/select2.min.css' %}">
+   <script src="{% static 'jquery/jquery-3.7.1.min.js' %}"></script>
+   <script src="{% static 'select2/dist/js/select2.min.js' %}"></script>
+   <script src="{% static 'select2/dist/js/i18n/ru.js' %}"></script>
+   <script>
+      $(document).ready(function() {
+         $('.js-select2').select2({
+            placeholder: "Выберите команду",
+            maximumSelectionLength: 2,
+            language: "ru"
+         });
+      });
+      </script>
 </td>
 <td>
    <h4>Команда 2  </h4>
@@ -25,6 +39,19 @@
 	   <option value={{t.id}} >{{t.t_name}}</option>
 	{%endfor%}	
    </select>
+   <link rel="stylesheet" href="{% static '/select2/dist/css/select2.min.css' %}">
+   <script src="{% static 'jquery/jquery-3.7.1.min.js' %}"></script>
+   <script src="{% static 'select2/dist/js/select2.min.js' %}"></script>
+   <script src="{% static 'select2/dist/js/i18n/ru.js' %}"></script>
+   <script>
+      $(document).ready(function() {
+         $('.js-select2').select2({
+            placeholder: "Выберите команду",
+            maximumSelectionLength: 2,
+            language: "ru"
+         });
+      });
+      </script>
 </td>
 <td>
 <h4>Выберите год:</h4>
@@ -42,6 +69,7 @@
 </select>
 </td>
 </Table>
+
 
 <br><button type="submit">Сравнить</button>
 

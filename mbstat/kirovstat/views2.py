@@ -195,8 +195,9 @@ def add_res_to_stat(request):
            
             new_data=i
             i.week_rating_tuz,i.week_rating_class,i.week_rating_summ =count_points_4_date(r_data=i.week_end,weeks=26)    
+            
             #t,c,s = count_points_4_date(r_data=i.week_end,weeks=26)
-            #print (dict(list(islice(c.items(), 0, 10))))
+            #print (t)
 
             #new_data=i
 
@@ -218,7 +219,7 @@ def add_res_to_stat(request):
         for i in weeks:
             new_data=i
             i.week_rating_tuz,i.week_rating_class,i.week_rating_summ ='{}','{}','{}'
-            print(new_data)
+            #print(new_data)
             new_data.save()
             context = { 'res': " Словари " }
 
