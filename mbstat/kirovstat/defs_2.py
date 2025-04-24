@@ -148,6 +148,50 @@ def get_rating_for_team (rt_data=date.today(), weeks=20,team_id=0):
         
     return(tuz_graph,class_graph,summ_graph,main_name)
 
+# сумма рейтига для команды(с ака) за кол-во недель изменённый, возвращает без недели
+def get_rating_for_team2 (rt_data=date.today(), weeks=20,team_id=0):
+
+    main_id = teams.objects.values('t_aka_id').get(pk=team_id)['t_aka_id']
+    main_name = teams.objects.values('t_name').get(pk=main_id)['t_name']
+    
+    aka_l=get_akas(main_id)
+    
+    rating_data=rt_data
+    
+    week_id_end = get_week_id (rating_data)
+    week_id_start = week_id_end - weeks
+    
+    tuz_team_points=0
+    class_team_points=0
+    summ_team_points=0
+    tuz_graph=[]
+    class_graph=[]
+    summ_graph=[]
+    weeks_for_graph=[]
+
+    rating_data = weekr.objects.filter(id__gte=week_id_start, id__lte=week_id_end).values_list('week_rating_tuz','week_rating_class','week_rating_summ','week_end')
+    
+    for i in rating_data:
+      
+      for j in aka_l:
+          
+          if eval(i[0]).get(j):
+           tuz_team_points =  eval(i[0])[j]
+          if eval(i[1]).get(j): 
+           class_team_points =  eval(i[1])[j]
+          if eval(i[2]).get(j): 
+           summ_team_points =  eval(i[2])[j]
+
+      tuz_graph.append(tuz_team_points)
+      class_graph.append(class_team_points)
+      summ_graph.append(summ_team_points)
+      weeks_for_graph.append(str(i[3]))
+         
+    
+        
+    return(tuz_graph,class_graph,summ_graph,main_name,weeks_for_graph)
+
+
 def build_graph_1():
    
   rating_tuz,rating_class,rating_summ =get_rating()
@@ -222,4 +266,49 @@ def build_graph_team(date=date.today(), weeks=60, t_id=1):
   plt.close()
     
   return (graph_tuz,graph_class,graph_summ) 
+
+
+def build_graph_team_compare(date=date.today(), weeks=60, t_id1=1, t_id2=2,):
+
+  rating_tuz1,rating_class1,rating_summ1,main_name1,weeks_for_graph1=get_rating_for_team2(rt_data=date.today(),weeks=60,team_id=t_id1)  
+  rating_tuz2,rating_class2,rating_summ2,main_name2,weeks_for_graph2=get_rating_for_team2(rt_data=date.today(),weeks=60,team_id=t_id2)  
+
+  plt.plot(weeks_for_graph1,rating_summ1,weeks_for_graph1,rating_summ2)
+  plt.xticks(range(0,70,10),rotation=30,fontsize=7)
+  plt.ylabel('Рейтинг общий')
+  plt.xlabel('Неделя')
+  #plt.title('Общяя статитика')
+  plt.legend(["{}".format(main_name1),"{}".format(main_name2)])
+  buffer = io.BytesIO()
+  plt.savefig(buffer, format='png')
+  graph_summ = base64.b64encode(buffer.getvalue()).decode()
+  plt.close()
+ 
+  plt.plot(weeks_for_graph1,rating_class1,weeks_for_graph1,rating_class2)
+  plt.xticks(range(0,70,10),rotation=30,fontsize=7)
+  plt.ylabel('Рейтинг за Классику')
+  plt.xlabel('Неделя')
+  #plt.title('Общяя статитика')
+  #plt.legend(main_name1,main_name12,loc="upper left", fontsize=10, facecolor="lightgray", edgecolor="black")
+  plt.legend(["{}".format(main_name1),"{}".format(main_name2)])
+  buffer = io.BytesIO()
+  plt.savefig(buffer, format='png')
+  graph_class = base64.b64encode(buffer.getvalue()).decode()
+  plt.close()
+
+  plt.plot(weeks_for_graph1,rating_tuz1,weeks_for_graph1,rating_tuz2)
+  plt.xticks(range(0,70,10),rotation=30,fontsize=7)
+  plt.ylabel('Рейтинг за Туц-Туц')
+  plt.xlabel('Неделя')
+  #plt.title('Общяя статитика')
+  #plt.legend(loc="upper left", fontsize=10, facecolor="lightgray", edgecolor="black")
+  plt.legend(["{}".format(main_name1),"{}".format(main_name2)])
+  buffer = io.BytesIO()
+  plt.savefig(buffer, format='png')
+  graph_tuz = base64.b64encode(buffer.getvalue()).decode()
+  plt.close()
+
+  print (main_name1, main_name2)
+
   
+  return (graph_tuz,graph_class,graph_summ)

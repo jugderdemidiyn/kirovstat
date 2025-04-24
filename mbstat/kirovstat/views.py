@@ -71,29 +71,11 @@ def team_info (request):
     f_data = year + '-12-31'
     t_data_info = get_games_info (akas_list,s_data,f_data)
     
-    Max_place =t_data_info.aggregate(Min('gd_place')) ['gd_place__min']
-    Min_place =t_data_info.aggregate(Max('gd_place')) ['gd_place__max']    
-    g_count = len(t_data_info)
-    
-    l_p=      [0,0,0,0,0,0,0,0,0,0,0]
-    l_p_class=[0,0,0,0,0,0,0,0,0,0,0]
-    l_p_tuz=  [0,0,0,0,0,0,0,0,0,0,0]
-    l_p_tem=  [0,0,0,0,0,0,0,0,0,0,0]
-    l_p_jub=  [0,0,0,0,0,0,0,0,0,0,0]
-    
-    for t in t_data_info:   
-      for i in range(1,11):
-        if t.gd_place==i:
-            l_p[i]=l_p[i]+1
-            if t.gd_game.g_type_id==1 or t.gd_game.g_type_id==5:
-               l_p_class[i]=l_p_class[i]+1
-            elif t.gd_game.g_type_id==2:
-               l_p_tuz[i]=l_p_tuz[i]+1
-            elif t.gd_game.g_type_id==3:
-               l_p_tem[i]=l_p_tem[i]+1
-            else:
-               l_p_jub[i]=l_p_jub[i]+1
+    Max_place,Min_place,g_count, \
+    l_p,l_p_class,l_p_tuz, \
+    l_p_tem,l_p_jub=get_team_year_results(t_data_info)
 
+   
     l=[1,2,3,4,5,6,7,8,9,10]
     
     graph_tuz,graph_class,graph_summ = build_graph_team(t_id=team_id)
@@ -167,17 +149,59 @@ def year_stat(request):
 def compare (request):
 
    compare_yes=0
+   context1={}
+   context2={}
    t_data = get_all_teams() 
 
    if request.method == 'GET' and request.GET.get('team_id1') and request.GET.get('team_id2'):
-
-
-
-
       compare_yes=1
+      team_id1 = request.GET['team_id1']
+      team_id2 = request.GET['team_id2']
+      try:
+        year = request.GET['year']
+      except:
+        year='2025'
 
-   context={'t_data' : t_data, 'compare_yes' : compare_yes}
+      
+      main_id1 = teams.objects.values('t_aka_id').get(pk=team_id1)['t_aka_id']
+      t_names1 = teams.objects.filter(t_aka=main_id1)
+      
+      akas_list1=get_akas(main_id1)
+      s_data = year + '-01-01'
+      f_data = year + '-12-31'
+      t_data_info1 = get_games_info (akas_list1,s_data,f_data)
+      Max_place1,Min_place1,g_count1, \
+      l_p1,l_p_class1,l_p_tuz1, \
+      l_p_tem1,l_p_jub1=get_team_year_results(t_data_info1)
 
-   return render(request, 'compare.html', context)
+      main_id2 = teams.objects.values('t_aka_id').get(pk=team_id2)['t_aka_id']
+      t_names2 = teams.objects.filter(t_aka=main_id2)
+      
+      akas_list2=get_akas(main_id2)
+      s_data = year + '-01-01'
+      f_data = year + '-12-31'
+      t_data_info2 = get_games_info (akas_list2,s_data,f_data)
+      Max_place2,Min_place2,g_count2, \
+      l_p2,l_p_class2,l_p_tuz2, \
+      l_p_tem2,l_p_jub2=get_team_year_results(t_data_info2)
+
+      context1 = {'t_data_info1': t_data_info1, 't_names1': t_names1, \
+               'Max_place1': Max_place1,'Min_place1' :Min_place1, 'g_count1':g_count1, \
+               'l_p1' : l_p1,'l_p_class1' : l_p_class1,'l_p_tuz1' : l_p_tuz1, \
+               'l_p_tem1' :l_p_tem1,'l_p_jub1':l_p_jub1}  
+      context2 = {'t_data_info2': t_data_info2, 't_names2': t_names2, \
+               'Max_place2': Max_place2,'Min_place2' :Min_place2, 'g_count2':g_count2, \
+               'l_p2' : l_p2,'l_p_class2' : l_p_class2,'l_p_tuz2' : l_p_tuz2, \
+               'l_p_tem2' :l_p_tem2,'l_p_jub2':l_p_jub2} 
+      
+      graph_tuz,graph_class,graph_summ = build_graph_team_compare(t_id1=team_id1,t_id2=team_id2)
+      
+      context3 = {'graph_tuz':graph_tuz,'graph_class':graph_class,'graph_summ':graph_summ}
+               
+   compared_teams=[1,2]
+
+   context={'compare_yes' : compare_yes, 't_data' :t_data, 'compared_teams' : compared_teams } | context1  | context2 | context3
+
+   return render(request, 'compare.html', context )
 
 

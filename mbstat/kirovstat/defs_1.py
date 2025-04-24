@@ -3,6 +3,7 @@ from datetime import date
 import collections as coll
 from operator import itemgetter
 import pandas as pd
+from django.db.models import Avg, Max, Min, Sum
 
 COUNT_POINT= (0,25,18,15,12,10,8,6,4,2,1)
 
@@ -174,3 +175,32 @@ def parse_excel_to_dict_list(filepath: str, sheet_name='Sheet1'):
 # объединить словари со сложение айтемов
 def merge_dicts(dict1, dict2):
     return {k: dict1.get(k, 0) + dict2.get(k, 0) for k in set(dict1) | set(dict2)}
+
+def get_team_year_results(t_data_info):
+
+    Max_place =t_data_info.aggregate(Min('gd_place')) ['gd_place__min']
+    Min_place =t_data_info.aggregate(Max('gd_place')) ['gd_place__max']    
+    g_count = len(t_data_info)
+    
+    l_p=      [0,0,0,0,0,0,0,0,0,0,0]
+    l_p_class=[0,0,0,0,0,0,0,0,0,0,0]
+    l_p_tuz=  [0,0,0,0,0,0,0,0,0,0,0]
+    l_p_tem=  [0,0,0,0,0,0,0,0,0,0,0]
+    l_p_jub=  [0,0,0,0,0,0,0,0,0,0,0]
+    
+    for t in t_data_info:   
+      for i in range(1,11):
+        if t.gd_place==i:
+            l_p[i]=l_p[i]+1
+            if t.gd_game.g_type_id==1 or t.gd_game.g_type_id==5:
+               l_p_class[i]=l_p_class[i]+1
+            elif t.gd_game.g_type_id==2:
+               l_p_tuz[i]=l_p_tuz[i]+1
+            elif t.gd_game.g_type_id==3:
+               l_p_tem[i]=l_p_tem[i]+1
+            else:
+               l_p_jub[i]=l_p_jub[i]+1
+
+    return (Max_place,Min_place,g_count, \
+    l_p,l_p_class,l_p_tuz, \
+    l_p_tem,l_p_jub)

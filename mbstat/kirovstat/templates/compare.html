@@ -26,6 +26,21 @@
 	{%endfor%}	
    </select>
 </td>
+<td>
+<h4>Выберите год:</h4>
+<select id="year" name="year">
+   <option value=2025>2025</option>
+   <option value=2024>2024</option>
+   <option value=2023>2023</option>
+   <option value=2022>2022</option>
+   <option value=2021>2021</option>
+   <option value=2020>2020</option>
+   <option value=2019>2019</option>
+   <option value=2018>2018</option> 
+   <option value=2017>2017</option> 
+   <option value=2016>2016</option>  
+</select>
+</td>
 </Table>
 
 <br><button type="submit">Сравнить</button>
@@ -34,21 +49,62 @@
 
 {% if compare_yes == 1 %}
    
-   Сравнение Сравнение
-   <table>
+   
+   <table class = 'table mt-1 table-bordered table-striped table-hover'>
 
-
-
-
+    <tr>
+     <td>
+      
+      {% for t in t_names1%}<br>
+      {%if t.id == t.t_aka_id%}
+      <h3> {{t.t_name}} </h3>
+      {%else%}
+      aka - {{t.t_name}}
+      {%endif%}  
+      {%endfor%} 
+     </td>
+     <td>
+      
+      {% for t in t_names2%}<br>
+      {%if t.id == t.t_aka_id%}
+      <h3> {{t.t_name}} </h3>
+      {%else%}
+      aka - {{t.t_name}}
+      {%endif%}  
+      {%endfor%} 
+     </td>
+    </tr>
+    <tr>
+      <td>
+        <ul>
+        <li>Всего игр - {{g_count1}} </li>
+        <li>Самое высокое место -  {{Max_place1}} </li>
+        <li>Самое низкое место -  {{Min_place1}} </li>
+        <li>Побед всего - {{l_p1.1}} </li>
+        <li>Побед в классике -  {{l_p_class1.1}} </li>
+        <li>Побед в музыке -  {{l_p_tuz1.1}} </li>
+        <li>Побед в тематике -  {{l_p_tem1.1}} </li>
+        </ul>
+      </td>
+      <td>
+        <li>Всего игр - {{g_count2}} </li>
+        <li>Самое высокое место -  {{Max_place2}} </li>
+        <li>Самое низкое место -  {{Min_place2}} </li>
+        <li>Побед всего - {{l_p2.1}} </li>
+        <li>Побед в классике -  {{l_p_class2.1}} </li>
+        <li>Побед в музыке -  {{l_p_tuz2.1}} </li>
+        <li>Побед в тематике -  {{l_p_tem2.1}} </li>
+       </td>
+      </tr>
    </table>
+
+   <img src="data:image/png;base64,{{ graph_summ }}" alt="" >
+   <img src="data:image/png;base64,{{ graph_tuz }}" alt="" >
+   <img src="data:image/png;base64,{{ graph_class }}" alt="" >
 
 {% endif %}
 
 
-<tbody>
-
-
-  
 
 
 
