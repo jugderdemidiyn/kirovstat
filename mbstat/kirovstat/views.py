@@ -151,6 +151,7 @@ def compare (request):
    compare_yes=0
    context1={}
    context2={}
+   context3={}
    t_data = get_all_teams() 
 
    if request.method == 'GET' and request.GET.get('team_id1') and request.GET.get('team_id2'):
@@ -195,7 +196,7 @@ def compare (request):
                'l_p_tem2' :l_p_tem2,'l_p_jub2':l_p_jub2} 
       
       graph_tuz,graph_class,graph_summ = build_graph_team_compare(t_id1=team_id1,t_id2=team_id2)
-      
+
       context3 = {'graph_tuz':graph_tuz,'graph_class':graph_class,'graph_summ':graph_summ}
                
    compared_teams=[1,2]
