@@ -60,6 +60,7 @@ def team_info (request):
        year = test1['year']
     except:
        year='2025'
+    t_data = get_all_teams()
     # Основной ID команды
     main_id = teams.objects.values('t_aka_id').get(pk=team_id)['t_aka_id']
     # все названия команды
@@ -82,7 +83,7 @@ def team_info (request):
           
 
     context = {'team_id':team_id,'t_data_info': t_data_info, 't_names': t_names, 't_foto': t_foto, \
-               'Max_place': Max_place,'Min_place' :Min_place, 'g_count':g_count, \
+               't_data':t_data,'Max_place': Max_place,'Min_place' :Min_place, 'g_count':g_count, \
                'l': l,'l_p' : l_p,'l_p_class' : l_p_class,'l_p_tuz' : l_p_tuz, \
                'l_p_tem' :l_p_tem,'l_p_jub':l_p_jub , 'year' : year,\
                'graph_tuz':graph_tuz,'graph_class':graph_class,'graph_summ':graph_summ}

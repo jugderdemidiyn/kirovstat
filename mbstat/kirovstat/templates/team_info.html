@@ -32,8 +32,34 @@
 <a href=/kirovstat/team_info/?team_id={{team_id}}&year=2022>2022</a>
 <a href=/kirovstat/team_info/?team_id={{team_id}}&year=2021>2021</a>
 <a href=/kirovstat/team_info/?team_id={{team_id}}&year=2020>2020</a>
-<br><br>
+<br>
 
+<form action = "/kirovstat/compare/"  method="get" target="_self">
+<p><h4> Сравнить с другой командой  </h4>
+   <select class="js-select2" name="team_id2" placeholder="Выберите команду">
+   <option value=""></option>
+   {% for t in t_data%}
+	   <option value= {{t.id}} >{{t.t_name}}</option>
+	{%endfor%}	
+   </select>
+   <link rel="stylesheet" href="{% static '/select2/dist/css/select2.min.css' %}">
+   <script src="{% static 'jquery/jquery-3.7.1.min.js' %}"></script>
+   <script src="{% static 'select2/dist/js/select2.min.js' %}"></script>
+   <script src="{% static 'select2/dist/js/i18n/ru.js' %}"></script>
+   <script>
+      $(document).ready(function() {
+         $('.js-select2').select2({
+            placeholder: "Выберите команду",
+            maximumSelectionLength: 2,
+            language: "ru"
+         });
+      });
+      </script>
+<input type="hidden" name="team_id1" value={{team_id}}>
+<br><button type="submit">Сравнить</button>
+</p>
+
+</form>
 <style>
   
   .wrap-expand-table a[href^="#click-expand"], .wrap-expand-table a[href="#close"] {
