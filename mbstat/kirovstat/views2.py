@@ -241,7 +241,7 @@ def test1 (request):
 
 def ratings(request): 
       
-
-    context  ={}
+    graph_tuz,graph_class,graph_summ=build_graph_top10()
+    context  ={'graph_tuz':graph_tuz,'graph_class':graph_class,'graph_summ':graph_summ}
 
     return render(request, 'ratings.html', context)   

@@ -11,6 +11,7 @@ import io
 import urllib, base64
 from . defs_1 import *
 from . views import *
+import itertools
 matplotlib.use('agg')
 
 
@@ -269,7 +270,7 @@ def build_graph_team(date=date.today(), weeks=60, t_id=1):
   return (graph_tuz,graph_class,graph_summ) 
 
 
-def build_graph_team_compare(date=date.today(), weeks=60, t_id1=1, t_id2=2,):
+def build_graph_team_compare(date=date.today(), weeks=60, t_id1=1, t_id2=2):
 
   rating_tuz1,rating_class1,rating_summ1,main_name1,weeks_for_graph1=get_rating_for_team2(rt_data=date.today(),weeks=60,team_id=t_id1)  
   rating_tuz2,rating_class2,rating_summ2,main_name2,weeks_for_graph2=get_rating_for_team2(rt_data=date.today(),weeks=60,team_id=t_id2)  
@@ -306,3 +307,120 @@ def build_graph_team_compare(date=date.today(), weeks=60, t_id1=1, t_id2=2,):
   plt.close()
  
   return (graph_tuz,graph_class,graph_summ)
+
+# 10 команд по рейтинку на дату и тип (tuz,class,summ)
+#  возвращает список c id команд
+def get_top10_teams(date=date.today(),type_of_data='summ'):
+
+  week_id=get_week_id (date)  
+  if type_of_data == 'tuz':
+    dict_of_rating=weekr.objects.values('week_rating_tuz').get(pk=week_id)['week_rating_tuz'] 
+  elif type_of_data == 'class':
+    dict_of_rating=weekr.objects.values('week_rating_class').get(pk=week_id)['week_rating_class']  
+  else:
+    dict_of_rating=weekr.objects.values('week_rating_summ').get(pk=week_id)['week_rating_summ'] 
+  
+  dict_of_rating_sorted=dict(sorted(eval(dict_of_rating).items(), key=itemgetter(-1), reverse = True))
+  top10_ids=list(dict(itertools.islice(dict_of_rating_sorted.items(), 0,10)).keys())
+  list_of_names=[]
+  for i in top10_ids:
+    list_of_names.append(teams.objects.values('t_name').get(pk=i)['t_name'])  
+    
+  return (top10_ids,list_of_names)
+  
+def get_ratings_for_team_and_type_by_weeks (rt_data=date.today(), weeks=20,team_id=1,type_of_data='summ'):
+
+    rating_data=rt_data
+    week_id_end = get_week_id (rating_data)
+    week_id_start = week_id_end - weeks
+    
+    column='week_rating_'+ type_of_data
+
+    rating_data = weekr.objects.filter(id__gte=week_id_start, id__lte=week_id_end).values_list(column)
+    
+    list_of_point_by_weeks=[]
+    for i in rating_data:
+      
+      if eval(i[0]).get(team_id): 
+        list_of_point_by_weeks.append(eval(i[0])[team_id]) 
+      else:
+        list_of_point_by_weeks.append(0)
+    
+    return(list_of_point_by_weeks)
+    
+          
+def get_week_list_for_graph (rt_data=date.today(), weeks=20,team_id=1,type_of_data='summ'):
+
+    rating_data=rt_data
+    week_id_end = get_week_id (rating_data)
+    week_id_start = week_id_end - weeks
+    
+    rating_data = weekr.objects.filter(id__gte=week_id_start, id__lte=week_id_end).values('week_end')
+    #print (rating_data)
+    #return()
+    return([str(i['week_end']) for i in rating_data])          
+
+
+def build_plot_top10(list_of_data,list_of_week,list_of_names):
+   
+  #print(list_of_week)
+  #print(list_of_data[0])
+  plt.plot(list_of_week,list_of_data[0],\
+           list_of_week,list_of_data[1],\
+           list_of_week,list_of_data[2],\
+           list_of_week,list_of_data[3],\
+           list_of_week,list_of_data[4],\
+           list_of_week,list_of_data[5],\
+           list_of_week,list_of_data[6],\
+           list_of_week,list_of_data[7],\
+           list_of_week,list_of_data[8],\
+           list_of_week,list_of_data[9]
+           
+           )
+  plt.xticks(range(0,70,10),rotation=30,fontsize=7)
+  #plt.ylabel('Рейтинг за ')
+  plt.xlabel('Неделя')
+  
+  plt.legend(["{}".format(list_of_names[0]),\
+              "{}".format(list_of_names[1]),\
+              "{}".format(list_of_names[2]),\
+              "{}".format(list_of_names[3]),\
+              "{}".format(list_of_names[4]),\
+              "{}".format(list_of_names[5]),\
+              "{}".format(list_of_names[6]),\
+              "{}".format(list_of_names[7]),\
+              "{}".format(list_of_names[8]),\
+              "{}".format(list_of_names[9]),\
+            ])
+  buffer = io.BytesIO()
+  plt.savefig(buffer, format='png')
+  graph = base64.b64encode(buffer.getvalue()).decode()
+  plt.close()
+   
+  return(graph)
+
+
+
+def get_graph_for_type(type_of_data='tuz',date=date.today()):
+                       
+  
+  list,list_of_names=get_top10_teams(type_of_data=type_of_data)
+  #print(list)
+  #print(data_for_graph)
+  data_for_graph=[]
+  for i in list:  
+    data_for_graph.append(get_ratings_for_team_and_type_by_weeks(team_id=i,type_of_data=type_of_data,weeks=60))
+  week_list_for_graph=get_week_list_for_graph(rt_data=date.today(), weeks=60)
+
+  #print(data_for_graph)
+  graph=build_plot_top10(data_for_graph,week_list_for_graph,list_of_names)
+  return(graph)
+
+def build_graph_top10(date=date.today(), weeks=60):
+  
+  graph_tuz=get_graph_for_type(type_of_data='tuz',date=date)
+  graph_class=get_graph_for_type(type_of_data='class',date=date)
+  graph_summ=get_graph_for_type(type_of_data='summ',date=date)
+  
+  return (graph_tuz,graph_class,graph_summ)
+  
