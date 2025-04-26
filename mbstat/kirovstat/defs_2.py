@@ -6,6 +6,7 @@ import pandas as pd
 import datetime
 import matplotlib 
 import matplotlib.pyplot as plt
+
 import numpy as np
 import io
 import urllib, base64
@@ -393,6 +394,8 @@ def build_plot_top10(list_of_data,list_of_week,list_of_names):
               "{}".format(list_of_names[9]),\
             ])
   buffer = io.BytesIO()
+  fig = matplotlib.pyplot.gcf()
+  fig.set_size_inches(10, 5)
   plt.savefig(buffer, format='png')
   graph = base64.b64encode(buffer.getvalue()).decode()
   plt.close()
