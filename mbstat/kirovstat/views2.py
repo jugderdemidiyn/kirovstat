@@ -7,6 +7,7 @@ from itertools import islice
 from . models import game_type, games, teams, gmdata, weekr
 from . defs_1 import * 
 from . defs_2 import * 
+from . defs_3 import *
 
 
 
@@ -240,8 +241,14 @@ def test1 (request):
 
 
 def ratings(request): 
-      
-    graph_tuz,graph_class,graph_summ=build_graph_top10()
+
+    if request.method == 'GET' and request.GET.get('date'):
+        rating_date= request.GET['date']
+
+    rating_date = datetime.datetime.strptime(rating_date, '%Y-%m-%d')
+
+
+    graph_tuz,graph_class,graph_summ=build_graph_top10(gr_date=rating_date)
     context  ={'graph_tuz':graph_tuz,'graph_class':graph_class,'graph_summ':graph_summ}
 
     return render(request, 'ratings.html', context)   

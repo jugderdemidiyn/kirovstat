@@ -1,9 +1,10 @@
-from . models import game_type, games, teams, gmdata
+from . models import game_type, games, teams, gmdata,weekr
 from datetime import date
 import collections as coll
 from operator import itemgetter
 import pandas as pd
 from django.db.models import Avg, Max, Min, Sum
+#from . defs_2 import *
 
 COUNT_POINT= (0,25,18,15,12,10,8,6,4,2,1)
 
@@ -44,7 +45,7 @@ def get_games_in_range(d_s , d_f):
     return(games_is_range)    
 
 #Получение все aka_id для команды
-def get_akas (t_id):
+def get_akas(t_id):
     
     
     t_names = teams.objects.filter(t_aka=t_id)
@@ -73,8 +74,7 @@ def get_all_teams():
     return(t_names)
 
 
-# получение словаря 
-# по запросу места, списка типов игра и граничных дат
+# получение словаря по запросу места, списка типов игра и граничных дат
 # возвращает словарь { id команды : [ количество мест, название команды ]}
 
 def get_place (place , type1 = [1,2,3,4,5], data_start = '2025-01-01', data_finish = '2025-12-31'):
@@ -204,3 +204,7 @@ def get_team_year_results(t_data_info):
     return (Max_place,Min_place,g_count, \
     l_p,l_p_class,l_p_tuz, \
     l_p_tem,l_p_jub)
+
+
+
+

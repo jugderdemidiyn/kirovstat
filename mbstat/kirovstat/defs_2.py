@@ -26,8 +26,8 @@ def get_week_id (rating_data):
     if rating_data.weekday() == 6:
        rating_week_data = rating_data
     else:
-       td = 6 - int(rating_data.weekday())
-       rating_week_data= rating_data + datetime.timedelta(days=td)
+       td = 1 + int(rating_data.weekday())
+       rating_week_data= rating_data - datetime.timedelta(days=td)
 
     week_id = weekr.objects.values('id').get(week_end=rating_week_data)['id']
     return (week_id)    
@@ -115,7 +115,7 @@ def get_rating_for_team (rt_data=date.today(), weeks=20,team_id=0):
     main_id = teams.objects.values('t_aka_id').get(pk=team_id)['t_aka_id']
     main_name = teams.objects.values('t_name').get(pk=main_id)['t_name']
     
-    aka_l=get_akas(main_id)
+    aka_l=get_akas(t_id=main_id)
     
     rating_data=rt_data
     
@@ -309,7 +309,7 @@ def build_graph_team_compare(date=date.today(), weeks=60, t_id1=1, t_id2=2):
  
   return (graph_tuz,graph_class,graph_summ)
 
-# 10 команд по рейтинку на дату и тип (tuz,class,summ)
+# 10 команд по рейтингу на дату и тип (tuz,class,summ)
 #  возвращает список c id команд
 def get_top10_teams(date=date.today(),type_of_data='summ'):
 
@@ -404,7 +404,7 @@ def build_plot_top10(list_of_data,list_of_week,list_of_names):
 
 
 
-def get_graph_for_type(type_of_data='tuz',date=date.today()):
+def get_graph_for_type(type_of_data='tuz',gr_date=date.today()):
                        
   
   list,list_of_names=get_top10_teams(type_of_data=type_of_data)
@@ -413,17 +413,17 @@ def get_graph_for_type(type_of_data='tuz',date=date.today()):
   data_for_graph=[]
   for i in list:  
     data_for_graph.append(get_ratings_for_team_and_type_by_weeks(team_id=i,type_of_data=type_of_data,weeks=60))
-  week_list_for_graph=get_week_list_for_graph(rt_data=date.today(), weeks=60)
+  week_list_for_graph=get_week_list_for_graph(rt_data=gr_date, weeks=60)
 
   #print(data_for_graph)
   graph=build_plot_top10(data_for_graph,week_list_for_graph,list_of_names)
   return(graph)
 
-def build_graph_top10(date=date.today(), weeks=60):
+def build_graph_top10(gr_date=date.today(), weeks=60):
   
-  graph_tuz=get_graph_for_type(type_of_data='tuz',date=date)
-  graph_class=get_graph_for_type(type_of_data='class',date=date)
-  graph_summ=get_graph_for_type(type_of_data='summ',date=date)
+  graph_tuz=get_graph_for_type(type_of_data='tuz',gr_date=gr_date)
+  graph_class=get_graph_for_type(type_of_data='class',gr_date=gr_date)
+  graph_summ=get_graph_for_type(type_of_data='summ',gr_date=gr_date)
   
   return (graph_tuz,graph_class,graph_summ)
   

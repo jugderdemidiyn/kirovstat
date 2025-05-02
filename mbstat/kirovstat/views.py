@@ -2,9 +2,10 @@ from django.shortcuts import render
 from django.http import HttpResponse 
 from django.http import JsonResponse
 from django.db.models import Avg, Max, Min, Sum
-from . models import game_type, games, teams, gmdata
+from . models import game_type, games, teams, gmdata, weekr
 from . defs_1 import * 
 from . defs_2 import *
+from . defs_3 import *
 
 
 def index(request): 
@@ -27,18 +28,7 @@ def index(request):
     place_data_tem_1=get_place(1,type1=[3])  
     place_data_tem_2=get_place(2,type1=[3])  
     place_data_tem_3=get_place(3,type1=[3])  
-     
-    #rating_5_tuz,rating_5_class,rating_5_summ = get_rating(date=date.today(), weeks=5) 
-
-   # for cl in rating_5_class:
-      #print(cl['week_end'])
-   #   c = eval(cl['week_rating_class'])
-   #   for key in c:
-   #     print(' -- ', c[key], t_data.c[key] )
-      #print(key, values)
- 
-
-
+    
     context = {
        #'rating_5_tuz': rating_5_tuz, 'rating_5_class': rating_5_class,'rating_5_summ': rating_5_summ,\
                'game1': game1, 'g_count' : g_count, 't_data' : t_data, 'year' : year, \
@@ -97,19 +87,30 @@ def game_info (request):
     game_id = request.GET['game_id']
     g_data_info = gmdata.objects.filter(gd_game = game_id).order_by('gd_place')
     game_info =  games.objects.get(pk=game_id)
+    
     a = games.objects.get(pk=game_id).g_sets
     year = games.objects.values('g_date').get(pk=game_id)['g_date'].year
+    game_date = str(games.objects.values('g_date').get(pk=game_id)['g_date'])
     
     tours=[]
     for i in range(1, a+1): 
        tours.append(i)
+
+    tuz_r=get_top10_teams_rating(type_of_data='tuz',game_date=game_info.g_date)
+    summ_r=get_top10_teams_rating(type_of_data='summ',game_date=game_info.g_date)
+    class_r=get_top10_teams_rating(type_of_data='class',game_date=game_info.g_date)
+
 
     if request.user.is_authenticated:
        change_yes=1
     else: change_yes=0
 
     
-    context = {'g_data_info': g_data_info, 'year' : year, 'game_info': game_info, 'tours' : tours, 'change_yes' : change_yes }
+    
+    context = {'g_data_info': g_data_info, 'year' : year, 'game_info': game_info, 'tours' : tours,\
+                'change_yes' : change_yes, 'game_date' : game_date,\
+                'summ_r' : summ_r, 'class_r' : class_r,'tuz_r' : tuz_r
+              }
     
     return render (request, 'game_info.html', context )
 
