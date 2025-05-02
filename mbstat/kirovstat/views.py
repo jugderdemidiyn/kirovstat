@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse 
 from django.http import JsonResponse
 from django.db.models import Avg, Max, Min, Sum
-from . models import game_type, games, teams, gmdata
+from . models import game_type, games, teams, gmdata, weekr
 from . defs_1 import * 
 from . defs_2 import *
 from . defs_3 import *

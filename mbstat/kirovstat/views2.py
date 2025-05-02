@@ -7,6 +7,7 @@ from itertools import islice
 from . models import game_type, games, teams, gmdata, weekr
 from . defs_1 import * 
 from . defs_2 import * 
+from . defs_3 import *
 
 
 
