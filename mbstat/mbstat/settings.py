@@ -76,23 +76,23 @@ WSGI_APPLICATION = 'mbstat.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db_1.sqlite3',
-    }
-}
-
 #DATABASES = {
-#  'default': { 
-#      'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#      'NAME' : 'kirovstat',
-#      'USER' : 'dbo',
-#      'PASSWORD' : '123456789',
-#      'HOST' : '192.168.123.11',
-#      'PORT' : '5432',
-#  }
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': BASE_DIR / 'db_1.sqlite3',
+#    }
 #}
+
+DATABASES = {
+  'default': { 
+      'ENGINE': 'django.db.backends.postgresql_psycopg2',
+      'NAME' : 'kirovstat',
+      'USER' : 'dbo',
+      'PASSWORD' : '123456789',
+      'HOST' : '192.168.123.11',
+      'PORT' : '5432',
+  }
+}
 
 
 # Password validation
