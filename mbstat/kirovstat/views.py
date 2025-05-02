@@ -87,8 +87,10 @@ def game_info (request):
     game_id = request.GET['game_id']
     g_data_info = gmdata.objects.filter(gd_game = game_id).order_by('gd_place')
     game_info =  games.objects.get(pk=game_id)
+    
     a = games.objects.get(pk=game_id).g_sets
     year = games.objects.values('g_date').get(pk=game_id)['g_date'].year
+    game_date = str(games.objects.values('g_date').get(pk=game_id)['g_date'])
     
     tours=[]
     for i in range(1, a+1): 
@@ -104,7 +106,9 @@ def game_info (request):
     else: change_yes=0
 
     
-    context = {'g_data_info': g_data_info, 'year' : year, 'game_info': game_info, 'tours' : tours, 'change_yes' : change_yes, \
+    
+    context = {'g_data_info': g_data_info, 'year' : year, 'game_info': game_info, 'tours' : tours,\
+                'change_yes' : change_yes, 'game_date' : game_date,\
                 'summ_r' : summ_r, 'class_r' : class_r,'tuz_r' : tuz_r
               }
     
