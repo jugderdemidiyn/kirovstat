@@ -407,12 +407,12 @@ def build_plot_top10(list_of_data,list_of_week,list_of_names):
 def get_graph_for_type(type_of_data='tuz',gr_date=date.today()):
                        
   
-  list,list_of_names=get_top10_teams(type_of_data=type_of_data)
+  list,list_of_names=get_top10_teams(type_of_data=type_of_data,date=gr_date)
   #print(list)
   #print(data_for_graph)
   data_for_graph=[]
   for i in list:  
-    data_for_graph.append(get_ratings_for_team_and_type_by_weeks(team_id=i,type_of_data=type_of_data,weeks=60))
+    data_for_graph.append(get_ratings_for_team_and_type_by_weeks(rt_data=gr_date,team_id=i,type_of_data=type_of_data,weeks=60))
   week_list_for_graph=get_week_list_for_graph(rt_data=gr_date, weeks=60)
 
   #print(data_for_graph)
