@@ -26,8 +26,8 @@ def get_week_id (rating_data):
     if rating_data.weekday() == 6:
        rating_week_data = rating_data
     else:
-       td = 6 - int(rating_data.weekday())
-       rating_week_data= rating_data + datetime.timedelta(days=td)
+       td = 1 + int(rating_data.weekday())
+       rating_week_data= rating_data - datetime.timedelta(days=td)
 
     week_id = weekr.objects.values('id').get(week_end=rating_week_data)['id']
     return (week_id)    
@@ -115,7 +115,7 @@ def get_rating_for_team (rt_data=date.today(), weeks=20,team_id=0):
     main_id = teams.objects.values('t_aka_id').get(pk=team_id)['t_aka_id']
     main_name = teams.objects.values('t_name').get(pk=main_id)['t_name']
     
-    aka_l=get_akas(main_id)
+    aka_l=get_akas(t_id=main_id)
     
     rating_data=rt_data
     
@@ -309,7 +309,7 @@ def build_graph_team_compare(date=date.today(), weeks=60, t_id1=1, t_id2=2):
  
   return (graph_tuz,graph_class,graph_summ)
 
-# 10 команд по рейтинку на дату и тип (tuz,class,summ)
+# 10 команд по рейтингу на дату и тип (tuz,class,summ)
 #  возвращает список c id команд
 def get_top10_teams(date=date.today(),type_of_data='summ'):
 

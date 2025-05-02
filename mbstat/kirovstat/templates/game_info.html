@@ -57,6 +57,37 @@
     </tbody>
 </table>
 
+<p><a href=/kirovstat/ratings/ > Рейтинг на момент игры </a>
+<table>
+    <td>
+    <ul><b> Общий</b><br>
+    {% for key,values in summ_r.items %}
+    <li>
+       <a href=/kirovstat/team_info/?team_id={{key}}&year={{year}} >{{values.0}} </a>-  {{values.1}}  <br>
+    </li>
+    {%endfor%}
+    </ul>
+    </td>   
+    <td>
+    <ul><b> Классика</b><br>
+        {% for key,values in class_r.items %}
+        <li>
+           <a href=/kirovstat/team_info/?team_id={{key}}&year={{year}} >{{values.0}} </a>-  {{values.1}}  <br>
+        </li>
+        {%endfor%}
+        </ul>
+    </td> 
+    <td>
+        <ul><b> Музыка</b><br>
+            {% for key,values in tuz_r.items %}
+            <li>
+               <a href=/kirovstat/team_info/?team_id={{key}}&year={{year}} >{{values.0}} </a>-  {{values.1}}  <br>
+            </li>
+            {%endfor%}
+            </ul>
+    </td>  
+
+</table>
 
 
 <div><a href="javascript:window.history.back();"><button type="button" class="btn btn-dark">Назад</button></a></button>
