@@ -2,6 +2,8 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.forms import ModelForm,forms
 import datetime
+import os
+import openpyxl
 from itertools import islice
 
 from . models import game_type, games, teams, gmdata, weekr
@@ -91,9 +93,7 @@ def add_game (request):
             )
             new_data.save()
         redir_addr = '/kirovstat/game_info/?game_id='+ str(game_id_for_add)
-
-        game_id_for_add=0
-        cheked_list=[]
+                
 
         return redirect(redir_addr)
 
@@ -222,9 +222,60 @@ def add_res_to_stat(request):
             i.week_rating_tuz,i.week_rating_class,i.week_rating_summ ='{}','{}','{}'
             #print(new_data)
             new_data.save()
-            context = { 'res': " Словари " }
+        
+        context = { 'res': " Словари " }
 
         return render(request, 'statstat.html', context)
+    
+    if request.method == 'GET' and request.GET.get('export_data'):
+
+        
+        list_names,teams_count=list_count_of_teams()
+        #print(list_names)
+
+        data_list={}
+        data_list['Teams']=list_names
+
+        for week_id in range(315,490):
+
+          dict_of_rating=weekr.objects.values('week_rating_summ').get(pk=week_id) ['week_rating_summ']
+          week_end=weekr.objects.values('week_end').get(pk=week_id) ['week_end'] 
+          dict_of_rating_sorted=dict(sorted(eval(dict_of_rating).items(), key=itemgetter(-1), reverse = True))
+          top10_ids=list(dict(itertools.islice(dict_of_rating_sorted.items(), 0,10)).keys())
+          
+          
+          #for u in range(teams_count):
+          #  l[u]=0
+          l = [0]*teams_count
+          #l.insert(0,str(week_end))
+          
+          for t in list_names:
+
+            for i in top10_ids:
+                
+                try:
+                  a=teams.objects.values('t_name').get(pk=i)['t_name']
+                  if t==a:
+                    l[list_names.index(a)]=eval(dict_of_rating)[i]
+                except:
+                    l[list_names.index('Чёт не найдено')]=eval(dict_of_rating)[i]
+        
+          #print(l)
+          data_list[str(week_end)]=l
+          l=[] 
+        df1= pd.DataFrame(data_list)
+        print(df1)
+        filepath = os.path.join('export.xlsx')
+        df1.to_excel(
+         filepath,
+         sheet_name='Total'
+         )    
+
+        context = { 'res': " Excel c 22 по 25 " }
+
+        return render(request, 'statstat.html', context)
+    
+    
 
     context = { 'res': " В целом нихуя" }
     return render(request, 'statstat.html',context)
