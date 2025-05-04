@@ -41,3 +41,30 @@ def get_top10_teams_rating(game_date=date.today(),type_of_data='summ'):
     l=[] 
 
   return (top10)
+
+def export_rating_2_excel():
+
+  return()
+
+
+def list_count_of_teams():
+  
+  set_names=set()
+
+  for week_id in range(315,490):
+
+        dict_of_rating=weekr.objects.values('week_rating_summ').get(pk=week_id) ['week_rating_summ']
+        
+        dict_of_rating_sorted=dict(sorted(eval(dict_of_rating).items(), key=itemgetter(-1), reverse = True))
+        top10_ids=list(dict(itertools.islice(dict_of_rating_sorted.items(), 0,10)).keys())
+        l=[]
+        for i in top10_ids:
+              try:
+                l.append(teams.objects.values('t_name').get(pk=i)['t_name'])
+              except:
+                l.append('Чёт не найдено')
+        set_names.update(set(l))
+      
+  list_names=list(set_names)
+  #list_names.insert(0,"Teams")
+  return(list_names,len(list_names))     
