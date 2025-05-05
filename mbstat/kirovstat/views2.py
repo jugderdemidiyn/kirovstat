@@ -52,9 +52,10 @@ def add_game (request):
             cheked_list_line['ch_name']=a_name
             cheked_list_line['ch_id']=a_id
             
-            for t in range(1,tours+1):
-                  tour_place=t+1
-                  cheked_list_line[t]=j[tour_place]
+            for t in range(0,tours+1):
+                  #tour_place=t+1
+                  cheked_list_line[t+1]=j[t+1]
+                  #print (j[t+1])
             for t1 in range(tours+1,11):
                 cheked_list_line[t1]=0
             cheked_list_line['place']=j[-1] 

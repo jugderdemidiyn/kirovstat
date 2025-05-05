@@ -53,7 +53,7 @@ def list_count_of_teams():
 
   for week_id in range(315,490):
 
-        dict_of_rating=weekr.objects.values('week_rating_summ').get(pk=week_id) ['week_rating_summ']
+        dict_of_rating=weekr.objects.values('week_rating_class').get(pk=week_id) ['week_rating_class']
         
         dict_of_rating_sorted=dict(sorted(eval(dict_of_rating).items(), key=itemgetter(-1), reverse = True))
         top10_ids=list(dict(itertools.islice(dict_of_rating_sorted.items(), 0,10)).keys())
