@@ -212,7 +212,7 @@ def build_graph_1():
   df=pd.DataFrame(data_tuz)
   df2= df.set_axis({'week_end','points','team_name'},axis=1)
   
-  print (df2)
+  #print (df2)
  
   pd.plotting.parallel_coordinates(df2,'team_name ')
   buffer = io.BytesIO()
@@ -314,6 +314,7 @@ def build_graph_team_compare(date=date.today(), weeks=60, t_id1=1, t_id2=2):
 def get_top10_teams(date=date.today(),type_of_data='summ'):
 
   week_id=get_week_id (date)  
+  #print('week_id',week_id)
   if type_of_data == 'tuz':
     dict_of_rating=weekr.objects.values('week_rating_tuz').get(pk=week_id)['week_rating_tuz'] 
   elif type_of_data == 'class':
@@ -326,7 +327,8 @@ def get_top10_teams(date=date.today(),type_of_data='summ'):
   list_of_names=[]
   for i in top10_ids:
     list_of_names.append(teams.objects.values('t_name').get(pk=i)['t_name'])  
-    
+  
+  #print('top10' , top10_ids)
   return (top10_ids,list_of_names)
   
 def get_ratings_for_team_and_type_by_weeks (rt_data=date.today(), weeks=20,team_id=1,type_of_data='summ'):
@@ -365,7 +367,9 @@ def get_week_list_for_graph (rt_data=date.today(), weeks=20,team_id=1,type_of_da
 def build_plot_top10(list_of_data,list_of_week,list_of_names):
    
   #print(list_of_week)
+  #print(list_of_data)
   #print(list_of_data[0])
+
   plt.plot(list_of_week,list_of_data[0],\
            list_of_week,list_of_data[1],\
            list_of_week,list_of_data[2],\
@@ -408,14 +412,22 @@ def get_graph_for_type(type_of_data='tuz',gr_date=date.today()):
                        
   
   list,list_of_names=get_top10_teams(type_of_data=type_of_data,date=gr_date)
-  #print(list)
-  #print(data_for_graph)
+  #print('list', list, 'list_of_names' ,list_of_names)
+  
+  if not list_of_names:
+     buffer = io.BytesIO()
+     plt.savefig(buffer, format='png')
+     graph = base64.b64encode(buffer.getvalue()).decode()
+     print('!!!!')
+     return(graph)
+  
   data_for_graph=[]
+  
   for i in list:  
     data_for_graph.append(get_ratings_for_team_and_type_by_weeks(rt_data=gr_date,team_id=i,type_of_data=type_of_data,weeks=60))
+   
   week_list_for_graph=get_week_list_for_graph(rt_data=gr_date, weeks=60)
 
-  #print(data_for_graph)
   graph=build_plot_top10(data_for_graph,week_list_for_graph,list_of_names)
   return(graph)
 
@@ -426,4 +438,5 @@ def build_graph_top10(gr_date=date.today(), weeks=60):
   graph_summ=get_graph_for_type(type_of_data='summ',gr_date=gr_date)
   
   return (graph_tuz,graph_class,graph_summ)
+  #return ()
   

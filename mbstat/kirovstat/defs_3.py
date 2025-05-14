@@ -6,6 +6,7 @@ import pandas as pd
 import datetime
 import matplotlib 
 import matplotlib.pyplot as plt
+import itertools
 
 import numpy as np
 import io

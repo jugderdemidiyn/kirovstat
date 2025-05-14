@@ -299,8 +299,10 @@ def ratings(request):
 
     rating_date = datetime.datetime.strptime(rating_date, '%Y-%m-%d')
 
-
+    
     graph_tuz,graph_class,graph_summ=build_graph_top10(gr_date=rating_date)
+    build_graph_top10(gr_date=rating_date)
     context  ={'graph_tuz':graph_tuz,'graph_class':graph_class,'graph_summ':graph_summ}
+    #context={}
 
     return render(request, 'ratings.html', context)   
